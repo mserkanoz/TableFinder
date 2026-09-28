@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/option_labels.dart';
-import '../../data/turkey_locations.dart';
 import '../../l10n/app_localizations.dart';
+import '../applications/application.dart';
+import '../applications/application_repository.dart';
 import '../auth/auth_service.dart';
 import '../games/game_card.dart';
 import '../games/game_detail_screen.dart';
@@ -12,6 +13,7 @@ import '../games/game_listing.dart';
 import '../games/game_repository.dart';
 import '../games/game_search_screen.dart';
 import '../profile/profile_edit_screen.dart';
+import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -24,9 +26,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final province = provinceByCode(profile.cityCode);
     final isDm = profile.roles.contains('dm');
     final isPlayer = profile.roles.contains('player');
+    void openGame(String gameId) =>
+        _push(context, GameDetailScreen(gameId: gameId, uid: user.uid, profile: profile));
 
     return Scaffold(
       appBar: AppBar(
@@ -35,9 +38,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             tooltip: l10n.profileEditTitle,
             icon: const Icon(Icons.person_outline),
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => ProfileEditScreen(user: user, initial: profile),
-            )),
+            onPressed: () => _push(context, ProfileEditScreen(user: user, initial: profile)),
           ),
           IconButton(
             tooltip: l10n.signOut,
@@ -51,25 +52,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Text(l10n.welcomeUser(profile.nickname), style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _InfoRow(Icons.theater_comedy_outlined,
-                      profile.roles.map((id) => roleLabel(l10n, id)).join(', ')),
-                  _InfoRow(Icons.menu_book_outlined,
-                      profile.systems.map((id) => systemLabel(l10n, id)).join(', ')),
-                  _InfoRow(Icons.table_restaurant_outlined,
-                      profile.platforms.map((id) => platformLabel(l10n, id)).join(', ')),
-                  if (province != null)
-                    _InfoRow(Icons.place_outlined,
-                        [profile.district, province.name].whereType<String>().join(', ')),
-                ],
-              ),
-            ),
-          ),
+          ProfileSummaryCard(profile: profile),
           const SizedBox(height: 12),
           Row(
             children: [
@@ -93,63 +76,95 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           if (isDm) ...[
-            const SizedBox(height: 24),
-            Text(l10n.myTables, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 8),
-            StreamBuilder<List<GameListing>>(
-              stream: GameRepository.instance.watchMine(user.uid),
-              builder: (context, snapshot) {
-                final games = snapshot.data;
-                if (games == null) {
-                  return const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-                if (games.isEmpty) return Text(l10n.noTablesYet);
-                return Column(
-                  children: [
-                    for (final g in games)
-                      GameCard(
-                        game: g,
-                        showStatus: true,
-                        onTap: () => _push(
-                          context,
-                          GameDetailScreen(gameId: g.id!, uid: user.uid, profile: profile),
-                        ),
-                      ),
-                  ],
-                );
-              },
-            ),
+            _heading(context, l10n.myTables),
+            _MyTables(uid: user.uid, onOpen: openGame),
+          ],
+          if (isPlayer) ...[
+            _heading(context, l10n.myApplications),
+            _MyApplications(uid: user.uid, onOpen: openGame),
           ],
         ],
       ),
     );
   }
+
+  Widget _heading(BuildContext context, String text) => Padding(
+        padding: const EdgeInsets.only(top: 24, bottom: 8),
+        child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+      );
 }
 
 void _push(BuildContext context, Widget screen) =>
     Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
 
-class _InfoRow extends StatelessWidget {
-  const _InfoRow(this.icon, this.text);
+const _spinner = Padding(padding: EdgeInsets.all(16), child: Center(child: CircularProgressIndicator()));
 
-  final IconData icon;
-  final String text;
+class _MyTables extends StatelessWidget {
+  const _MyTables({required this.uid, required this.onOpen});
+
+  final String uid;
+  final void Function(String gameId) onOpen;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 20),
-          const SizedBox(width: 12),
-          Expanded(child: Text(text)),
-        ],
-      ),
+    final l10n = AppLocalizations.of(context);
+    return StreamBuilder<List<GameListing>>(
+      stream: GameRepository.instance.watchMine(uid),
+      builder: (context, snapshot) {
+        final games = snapshot.data;
+        if (games == null) return _spinner;
+        if (games.isEmpty) return Text(l10n.noTablesYet);
+        return StreamBuilder<Map<String, int>>(
+          stream: ApplicationRepository.instance.watchPendingCounts(uid),
+          builder: (context, counts) => Column(
+            children: [
+              for (final g in games)
+                GameCard(
+                  game: g,
+                  showStatus: true,
+                  badge: (counts.data?[g.id] ?? 0) > 0 ? l10n.pendingApplications(counts.data![g.id]!) : null,
+                  onTap: () => onOpen(g.id!),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _MyApplications extends StatelessWidget {
+  const _MyApplications({required this.uid, required this.onOpen});
+
+  final String uid;
+  final void Function(String gameId) onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return StreamBuilder<List<GameApplication>>(
+      stream: ApplicationRepository.instance.watchByApplicant(uid),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) debugPrint('My applications error: ${snapshot.error}');
+        final apps = snapshot.data?.where((a) => a.status != 'withdrawn').toList();
+        if (apps == null) return snapshot.hasError ? Text(l10n.actionFailed) : _spinner;
+        if (apps.isEmpty) return Text(l10n.noApplicationsYet);
+        return Column(
+          children: [
+            for (final a in apps)
+              Card(
+                child: ListTile(
+                  title: Text(a.gameTitle),
+                  trailing: Chip(
+                    label: Text(applicationStatusLabel(l10n, a.status)),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                  onTap: () => onOpen(a.gameId),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

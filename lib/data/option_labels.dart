@@ -34,3 +34,10 @@ String gameStatusLabel(AppLocalizations l10n, String id) => switch (id) {
       'closed' => l10n.statusClosed,
       _ => l10n.statusOpen,
     };
+
+String applicationStatusLabel(AppLocalizations l10n, String id) => switch (id) {
+      'accepted' => l10n.appAccepted,
+      'rejected' => l10n.appRejected,
+      'withdrawn' => l10n.appWithdrawn,
+      _ => l10n.appPending,
+    };

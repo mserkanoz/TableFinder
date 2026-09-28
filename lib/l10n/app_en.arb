@@ -16,7 +16,6 @@
       }
     }
   },
-  "homePlaceholder": "Game listings will appear here soon.",
   "signOut": "Sign out",
 
   "profileSetupTitle": "Create your profile",
@@ -125,5 +124,42 @@
   "loadMore": "Load more",
   "gameNotFound": "This listing no longer exists.",
   "yourListing": "This is your listing.",
-  "applyComingSoon": "Applying to games is coming in the next update."
+  "apply": "Apply",
+  "applyDialogTitle": "Apply to this game",
+  "applyMessageLabel": "Message to the DM (optional)",
+  "applyMessageHint": "Introduce yourself: experience, availability…",
+  "send": "Send",
+  "applicationStatusLabel": "Your application",
+  "appPending": "Pending",
+  "appAccepted": "Accepted",
+  "appRejected": "Not accepted",
+  "appWithdrawn": "Withdrawn",
+  "withdraw": "Withdraw",
+  "withdrawConfirm": "Withdraw your application?",
+  "applyAgain": "Apply again",
+  "contactNoteTitle": "Contact note from the DM",
+  "noContactNote": "The DM hasn't added a contact note yet.",
+  "applicationsTitle": "Applications",
+  "noApplications": "No applications yet.",
+  "accept": "Accept",
+  "reject": "Reject",
+  "removePlayer": "Remove from table",
+  "removePlayerConfirm": "Remove {name} from the table? Their seat will open up again.",
+  "@removePlayerConfirm": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "playerRoleNeeded": "Add the Player role to your profile to apply.",
+  "gameNotOpen": "This game isn't accepting applications right now.",
+  "myApplications": "My applications",
+  "noApplicationsYet": "You haven't applied to any games yet.",
+  "pendingApplications": "{count, plural, =1{1 new application} other{{count} new applications}}",
+  "@pendingApplications": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "actionFailed": "Something went wrong. Please try again.",
+  "searchFailed": "Search failed. Please try again in a moment."
 }

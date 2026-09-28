@@ -134,12 +134,6 @@ abstract class AppLocalizations {
   /// **'Welcome, {name}!'**
   String welcomeUser(String name);
 
-  /// No description provided for @homePlaceholder.
-  ///
-  /// In en, this message translates to:
-  /// **'Game listings will appear here soon.'**
-  String get homePlaceholder;
-
   /// No description provided for @signOut.
   ///
   /// In en, this message translates to:
@@ -680,11 +674,173 @@ abstract class AppLocalizations {
   /// **'This is your listing.'**
   String get yourListing;
 
-  /// No description provided for @applyComingSoon.
+  /// No description provided for @apply.
   ///
   /// In en, this message translates to:
-  /// **'Applying to games is coming in the next update.'**
-  String get applyComingSoon;
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @applyDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply to this game'**
+  String get applyDialogTitle;
+
+  /// No description provided for @applyMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message to the DM (optional)'**
+  String get applyMessageLabel;
+
+  /// No description provided for @applyMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Introduce yourself: experience, availability…'**
+  String get applyMessageHint;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
+
+  /// No description provided for @applicationStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your application'**
+  String get applicationStatusLabel;
+
+  /// No description provided for @appPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get appPending;
+
+  /// No description provided for @appAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted'**
+  String get appAccepted;
+
+  /// No description provided for @appRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not accepted'**
+  String get appRejected;
+
+  /// No description provided for @appWithdrawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawn'**
+  String get appWithdrawn;
+
+  /// No description provided for @withdraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw'**
+  String get withdraw;
+
+  /// No description provided for @withdrawConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw your application?'**
+  String get withdrawConfirm;
+
+  /// No description provided for @applyAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply again'**
+  String get applyAgain;
+
+  /// No description provided for @contactNoteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact note from the DM'**
+  String get contactNoteTitle;
+
+  /// No description provided for @noContactNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The DM hasn\'t added a contact note yet.'**
+  String get noContactNote;
+
+  /// No description provided for @applicationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Applications'**
+  String get applicationsTitle;
+
+  /// No description provided for @noApplications.
+  ///
+  /// In en, this message translates to:
+  /// **'No applications yet.'**
+  String get noApplications;
+
+  /// No description provided for @accept.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get accept;
+
+  /// No description provided for @reject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get reject;
+
+  /// No description provided for @removePlayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from table'**
+  String get removePlayer;
+
+  /// No description provided for @removePlayerConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from the table? Their seat will open up again.'**
+  String removePlayerConfirm(String name);
+
+  /// No description provided for @playerRoleNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the Player role to your profile to apply.'**
+  String get playerRoleNeeded;
+
+  /// No description provided for @gameNotOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'This game isn\'t accepting applications right now.'**
+  String get gameNotOpen;
+
+  /// No description provided for @myApplications.
+  ///
+  /// In en, this message translates to:
+  /// **'My applications'**
+  String get myApplications;
+
+  /// No description provided for @noApplicationsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t applied to any games yet.'**
+  String get noApplicationsYet;
+
+  /// No description provided for @pendingApplications.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 new application} other{{count} new applications}}'**
+  String pendingApplications(int count);
+
+  /// No description provided for @actionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get actionFailed;
+
+  /// No description provided for @searchFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Search failed. Please try again in a moment.'**
+  String get searchFailed;
 }
 
 class _AppLocalizationsDelegate

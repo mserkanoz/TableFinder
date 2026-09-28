@@ -175,7 +175,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
       ),
     );
     if (ok != true || !mounted) return;
-    await GameRepository.instance.delete(widget.initial!.id!);
+    await GameRepository.instance.delete(widget.initial!.id!, widget.uid);
     // Close the form and the detail screen behind it.
     if (mounted) Navigator.of(context).popUntil((route) => route.isFirst);
   }

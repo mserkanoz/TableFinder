@@ -22,11 +22,12 @@ String formatSessionTime(BuildContext context, DateTime t) {
 
 /// Compact listing summary used in search results and "My tables".
 class GameCard extends StatelessWidget {
-  const GameCard({super.key, required this.game, required this.onTap, this.showStatus = false});
+  const GameCard({super.key, required this.game, required this.onTap, this.showStatus = false, this.badge});
 
   final GameListing game;
   final VoidCallback onTap;
   final bool showStatus;
+  final String? badge;
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +77,15 @@ class GameCard extends StatelessWidget {
                   Text(l10n.seatsSummary(g.seatsOpen, g.seatsTotal)),
                 ],
               ),
+              if (badge != null) ...[
+                const SizedBox(height: 8),
+                Badge(
+                  label: Text(badge!),
+                  backgroundColor: theme.colorScheme.primary,
+                  textColor: theme.colorScheme.onPrimary,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                ),
+              ],
               if (g.sessionAt != null) ...[
                 const SizedBox(height: 4),
                 Row(

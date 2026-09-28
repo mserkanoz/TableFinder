@@ -71,7 +71,7 @@ class _GameSearchScreenState extends State<GameSearchScreen> {
     } catch (e) {
       // A missing composite index shows up here with a console link in debug logs.
       debugPrint('Search error: $e');
-      setState(() => _error = e.toString());
+      setState(() => _error = AppLocalizations.of(context).searchFailed);
     } finally {
       if (mounted) setState(() => _loading = false);
     }

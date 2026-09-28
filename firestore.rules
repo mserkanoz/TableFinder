@@ -83,7 +83,9 @@ service cloud.firestore {
                                'status', 'createdAt', 'updatedAt'])
         && d.ownerUid == request.auth.uid
         && 'dm' in owner.roles
-        && d.ownerNickname == owner.nickname
+        // Current nickname, or unchanged (the DM may have renamed since posting).
+        && (d.ownerNickname == owner.nickname
+            || (resource != null && d.ownerNickname == resource.data.ownerNickname))
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
         && d.system is string && d.system.size() >= 1 && d.system.size() <= 30
         && d.platform in ['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other']
@@ -117,9 +119,12 @@ service cloud.firestore {
         && request.resource.data.createdAt == resource.data.createdAt;
       allow delete: if signedIn() && resource.data.ownerUid == request.auth.uid;
 
-      // Private contact note. Owner only for now; accepted players come with applications.
+      // Private contact note: the owner and accepted players can read it.
       match /private/{docId} {
-        allow read: if signedIn() && get(gamePath(gameId)).data.ownerUid == request.auth.uid;
+        allow read: if signedIn()
+          && (get(gamePath(gameId)).data.ownerUid == request.auth.uid
+              || get(/databases/$(database)/documents/games/$(gameId)/applications/$(request.auth.uid))
+                   .data.status == 'accepted');
         allow create, update: if signedIn() && docId == 'contact'
           && getAfter(gamePath(gameId)).data.ownerUid == request.auth.uid
           && request.resource.data.keys().hasOnly(['note'])
@@ -127,6 +132,71 @@ service cloud.firestore {
         // Also allowed when the game is deleted in the same batch.
         allow delete: if signedIn() && get(gamePath(gameId)).data.ownerUid == request.auth.uid;
       }
+
+      // Applications: games/{gameId}/applications/{applicantUid}, one per player.
+      // Reads are handled by the collection-group match below.
+      match /applications/{applicantUid} {
+        allow create: if signedIn() && request.auth.uid == applicantUid && validNewApplication(gameId);
+        allow update: if signedIn()
+          && (applicantUpdate(gameId, applicantUid) || ownerUpdate(gameId));
+        // Only as part of deleting the whole game.
+        allow delete: if signedIn() && get(gamePath(gameId)).data.ownerUid == request.auth.uid;
+      }
+    }
+
+    function validNewApplication(gameId) {
+      let d = request.resource.data;
+      let game = get(gamePath(gameId)).data;
+      let me = get(userPath(request.auth.uid)).data;
+      return d.keys().hasOnly(['gameId', 'gameTitle', 'gameOwnerUid', 'applicantUid',
+                               'applicantNickname', 'message', 'status', 'createdAt', 'updatedAt'])
+        && game.status == 'open'
+        && game.ownerUid != request.auth.uid
+        && 'player' in me.roles
+        && d.gameId == gameId
+        && d.gameTitle == game.title
+        && d.gameOwnerUid == game.ownerUid
+        && d.applicantUid == request.auth.uid
+        && d.applicantNickname == me.nickname
+        && d.message is string && d.message.size() <= 500
+        && d.status == 'pending'
+        && d.createdAt == request.time
+        && d.updatedAt == request.time;
+    }
+
+    // Applicant: withdraw (pending/accepted -> withdrawn) or re-apply (withdrawn -> pending).
+    function applicantUpdate(gameId, applicantUid) {
+      let before = resource.data.status;
+      let after = request.resource.data.status;
+      return request.auth.uid == applicantUid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'message', 'updatedAt'])
+        && request.resource.data.message is string && request.resource.data.message.size() <= 500
+        && request.resource.data.updatedAt == request.time
+        && ((before in ['pending', 'accepted'] && after == 'withdrawn')
+            || (before == 'withdrawn' && after == 'pending'
+                && get(gamePath(gameId)).data.status == 'open'));
+    }
+
+    // Game owner: accept/reject pending applications, or remove an accepted player.
+    function ownerUpdate(gameId) {
+      let before = resource.data.status;
+      let after = request.resource.data.status;
+      return get(gamePath(gameId)).data.ownerUid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
+        && request.resource.data.updatedAt == request.time
+        && ((before == 'pending' && after in ['accepted', 'rejected'])
+            || (before == 'accepted' && after == 'rejected'));
+    }
+
+    // Reading applications (single docs and collection-group queries):
+    // the applicant and the game owner only. Queries must filter on
+    // applicantUid or gameOwnerUid for these rules to allow them.
+    match /{path=**}/applications/{applicantUid} {
+      allow get: if signedIn()
+        && (request.auth.uid == applicantUid || resource.data.gameOwnerUid == request.auth.uid);
+      allow list: if signedIn()
+        && (resource.data.applicantUid == request.auth.uid
+            || resource.data.gameOwnerUid == request.auth.uid);
     }
 
     // Nickname reservations: nicknames/{key} = { uid }. Key = nickKey(nickname).

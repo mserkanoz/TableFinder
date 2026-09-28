@@ -30,9 +30,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homePlaceholder => 'Game listings will appear here soon.';
-
-  @override
   String get signOut => 'Sign out';
 
   @override
@@ -316,6 +313,99 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourListing => 'This is your listing.';
 
   @override
-  String get applyComingSoon =>
-      'Applying to games is coming in the next update.';
+  String get apply => 'Apply';
+
+  @override
+  String get applyDialogTitle => 'Apply to this game';
+
+  @override
+  String get applyMessageLabel => 'Message to the DM (optional)';
+
+  @override
+  String get applyMessageHint =>
+      'Introduce yourself: experience, availability…';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get applicationStatusLabel => 'Your application';
+
+  @override
+  String get appPending => 'Pending';
+
+  @override
+  String get appAccepted => 'Accepted';
+
+  @override
+  String get appRejected => 'Not accepted';
+
+  @override
+  String get appWithdrawn => 'Withdrawn';
+
+  @override
+  String get withdraw => 'Withdraw';
+
+  @override
+  String get withdrawConfirm => 'Withdraw your application?';
+
+  @override
+  String get applyAgain => 'Apply again';
+
+  @override
+  String get contactNoteTitle => 'Contact note from the DM';
+
+  @override
+  String get noContactNote => 'The DM hasn\'t added a contact note yet.';
+
+  @override
+  String get applicationsTitle => 'Applications';
+
+  @override
+  String get noApplications => 'No applications yet.';
+
+  @override
+  String get accept => 'Accept';
+
+  @override
+  String get reject => 'Reject';
+
+  @override
+  String get removePlayer => 'Remove from table';
+
+  @override
+  String removePlayerConfirm(String name) {
+    return 'Remove $name from the table? Their seat will open up again.';
+  }
+
+  @override
+  String get playerRoleNeeded =>
+      'Add the Player role to your profile to apply.';
+
+  @override
+  String get gameNotOpen =>
+      'This game isn\'t accepting applications right now.';
+
+  @override
+  String get myApplications => 'My applications';
+
+  @override
+  String get noApplicationsYet => 'You haven\'t applied to any games yet.';
+
+  @override
+  String pendingApplications(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count new applications',
+      one: '1 new application',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get actionFailed => 'Something went wrong. Please try again.';
+
+  @override
+  String get searchFailed => 'Search failed. Please try again in a moment.';
 }

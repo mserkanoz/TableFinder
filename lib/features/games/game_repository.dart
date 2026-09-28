@@ -93,8 +93,16 @@ class GameRepository {
     return doc.data()?['note'] as String? ?? '';
   }
 
-  Future<void> delete(String gameId) async {
+  Future<void> delete(String gameId, String ownerUid) async {
+    final apps = await _games
+        .doc(gameId)
+        .collection('applications')
+        .where('gameOwnerUid', isEqualTo: ownerUid)
+        .get();
     final batch = FirebaseFirestore.instance.batch();
+    for (final a in apps.docs) {
+      batch.delete(a.reference);
+    }
     batch.delete(_contactRef(gameId));
     batch.delete(_games.doc(gameId));
     await batch.commit();

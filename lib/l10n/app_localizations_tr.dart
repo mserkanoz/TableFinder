@@ -30,9 +30,6 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get homePlaceholder => 'Oyun ilanları yakında burada olacak.';
-
-  @override
   String get signOut => 'Çıkış yap';
 
   @override
@@ -316,6 +313,91 @@ class AppLocalizationsTr extends AppLocalizations {
   String get yourListing => 'Bu senin ilanın.';
 
   @override
-  String get applyComingSoon =>
-      'İlanlara başvuru bir sonraki güncellemede geliyor.';
+  String get apply => 'Başvur';
+
+  @override
+  String get applyDialogTitle => 'Bu oyuna başvur';
+
+  @override
+  String get applyMessageLabel => 'DM\'e mesaj (isteğe bağlı)';
+
+  @override
+  String get applyMessageHint =>
+      'Kendini tanıt: deneyimin, ne zaman uygun olduğun…';
+
+  @override
+  String get send => 'Gönder';
+
+  @override
+  String get applicationStatusLabel => 'Başvurun';
+
+  @override
+  String get appPending => 'Bekliyor';
+
+  @override
+  String get appAccepted => 'Kabul edildi';
+
+  @override
+  String get appRejected => 'Kabul edilmedi';
+
+  @override
+  String get appWithdrawn => 'Geri çekildi';
+
+  @override
+  String get withdraw => 'Geri çek';
+
+  @override
+  String get withdrawConfirm => 'Başvurun geri çekilsin mi?';
+
+  @override
+  String get applyAgain => 'Tekrar başvur';
+
+  @override
+  String get contactNoteTitle => 'DM\'in iletişim notu';
+
+  @override
+  String get noContactNote => 'DM henüz iletişim notu eklemedi.';
+
+  @override
+  String get applicationsTitle => 'Başvurular';
+
+  @override
+  String get noApplications => 'Henüz başvuru yok.';
+
+  @override
+  String get accept => 'Kabul et';
+
+  @override
+  String get reject => 'Reddet';
+
+  @override
+  String get removePlayer => 'Masadan çıkar';
+
+  @override
+  String removePlayerConfirm(String name) {
+    return '$name masadan çıkarılsın mı? Yeri tekrar açılacak.';
+  }
+
+  @override
+  String get playerRoleNeeded => 'Başvurmak için profiline Oyuncu rolünü ekle.';
+
+  @override
+  String get gameNotOpen => 'Bu ilan şu an başvuru kabul etmiyor.';
+
+  @override
+  String get myApplications => 'Başvurularım';
+
+  @override
+  String get noApplicationsYet => 'Henüz bir oyuna başvurmadın.';
+
+  @override
+  String pendingApplications(int count) {
+    return '$count yeni başvuru';
+  }
+
+  @override
+  String get actionFailed => 'Bir şeyler ters gitti. Lütfen tekrar deneyin.';
+
+  @override
+  String get searchFailed => 'Arama yapılamadı. Biraz sonra tekrar deneyin.';
 }
