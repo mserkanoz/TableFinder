@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "appTitle": "TableFinder",
+  "tagline": "Find your table. Find your players.",
+  "@tagline": {
+    "description": "Short slogan shown on the sign-in screen"
+  },
+  "ageConfirmation": "I confirm that I am 18 years of age or older.",
+  "signInWithGoogle": "Sign in with Google",
+  "signInFailed": "Sign-in failed. Please try again.",
+  "welcomeUser": "Welcome, {name}!",
+  "@welcomeUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homePlaceholder": "Game listings will appear here soon.",
+  "signOut": "Sign out"
+}

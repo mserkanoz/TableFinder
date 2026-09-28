@@ -1,0 +1,11 @@
+{
+  "@@locale": "tr",
+  "appTitle": "TableFinder",
+  "tagline": "Masanı bul. Oyuncularını bul.",
+  "ageConfirmation": "18 yaşından büyük olduğumu onaylıyorum.",
+  "signInWithGoogle": "Google ile giriş yap",
+  "signInFailed": "Giriş yapılamadı. Lütfen tekrar deneyin.",
+  "welcomeUser": "Hoş geldin, {name}!",
+  "homePlaceholder": "Oyun ilanları yakında burada olacak.",
+  "signOut": "Çıkış yap"
+}
