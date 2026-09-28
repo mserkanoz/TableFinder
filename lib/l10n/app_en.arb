@@ -17,5 +17,30 @@
     }
   },
   "homePlaceholder": "Game listings will appear here soon.",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+
+  "profileSetupTitle": "Create your profile",
+  "profileEditTitle": "Edit profile",
+  "nicknameLabel": "Nickname",
+  "nicknameHelper": "Shown to other users instead of your real name.",
+  "nicknameError": "Enter 2–30 characters.",
+  "rolesLabel": "Role",
+  "rolesHelper": "You can pick both.",
+  "rolePlayer": "Player",
+  "roleDm": "DM / GM",
+  "systemsLabel": "Game systems",
+  "platformsLabel": "Where do you play?",
+  "platformInPerson": "In person",
+  "optionOther": "Other",
+  "locationLabel": "Location",
+  "locationHelperRequired": "Required for in-person games.",
+  "locationHelperOptional": "Optional if you only play online.",
+  "cityLabel": "Province",
+  "districtLabel": "District",
+  "bioLabel": "About you",
+  "bioHint": "Experience, favourite settings, when you're available…",
+  "selectAtLeastOne": "Select at least one.",
+  "locationRequired": "Select a province and a district.",
+  "save": "Save",
+  "saveFailed": "Could not save. Please try again."
 }

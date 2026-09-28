@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'features/auth/auth_service.dart';
 import 'features/auth/sign_in_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/profile/profile_edit_screen.dart';
+import 'features/profile/profile_repository.dart';
+import 'features/profile/user_profile.dart';
 import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
@@ -32,7 +36,9 @@ class TableFinderApp extends StatelessWidget {
   }
 }
 
-/// Shows the sign-in screen or the home screen depending on auth state.
+const _loading = Scaffold(body: Center(child: CircularProgressIndicator()));
+
+/// Signed out -> sign-in screen; no profile yet -> profile setup; else home.
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 
@@ -41,11 +47,30 @@ class AuthGate extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: AuthService.instance.authStateChanges,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
+        if (snapshot.connectionState == ConnectionState.waiting) return _loading;
         final user = snapshot.data;
-        return user == null ? const SignInScreen() : HomeScreen(user: user);
+        if (user == null) return const SignInScreen();
+        return _ProfileGate(key: ValueKey(user.uid), user: user);
+      },
+    );
+  }
+}
+
+class _ProfileGate extends StatelessWidget {
+  const _ProfileGate({super.key, required this.user});
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: ProfileRepository.instance.watch(user.uid),
+      builder: (context, snapshot) {
+        final doc = snapshot.data;
+        // A missing doc from the local cache may just mean "not synced yet".
+        if (doc == null || (!doc.exists && doc.metadata.isFromCache)) return _loading;
+        if (!doc.exists) return ProfileEditScreen(user: user);
+        return HomeScreen(user: user, profile: UserProfile.fromMap(doc.data()!));
       },
     );
   }

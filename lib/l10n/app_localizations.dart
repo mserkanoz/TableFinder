@@ -145,6 +145,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign out'**
   String get signOut;
+
+  /// No description provided for @profileSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your profile'**
+  String get profileSetupTitle;
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get profileEditTitle;
+
+  /// No description provided for @nicknameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get nicknameLabel;
+
+  /// No description provided for @nicknameHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown to other users instead of your real name.'**
+  String get nicknameHelper;
+
+  /// No description provided for @nicknameError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 2–30 characters.'**
+  String get nicknameError;
+
+  /// No description provided for @rolesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get rolesLabel;
+
+  /// No description provided for @rolesHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'You can pick both.'**
+  String get rolesHelper;
+
+  /// No description provided for @rolePlayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Player'**
+  String get rolePlayer;
+
+  /// No description provided for @roleDm.
+  ///
+  /// In en, this message translates to:
+  /// **'DM / GM'**
+  String get roleDm;
+
+  /// No description provided for @systemsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game systems'**
+  String get systemsLabel;
+
+  /// No description provided for @platformsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Where do you play?'**
+  String get platformsLabel;
+
+  /// No description provided for @platformInPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'In person'**
+  String get platformInPerson;
+
+  /// No description provided for @optionOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get optionOther;
+
+  /// No description provided for @locationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationLabel;
+
+  /// No description provided for @locationHelperRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required for in-person games.'**
+  String get locationHelperRequired;
+
+  /// No description provided for @locationHelperOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional if you only play online.'**
+  String get locationHelperOptional;
+
+  /// No description provided for @cityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Province'**
+  String get cityLabel;
+
+  /// No description provided for @districtLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'District'**
+  String get districtLabel;
+
+  /// No description provided for @bioLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'About you'**
+  String get bioLabel;
+
+  /// No description provided for @bioHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Experience, favourite settings, when you\'re available…'**
+  String get bioHint;
+
+  /// No description provided for @selectAtLeastOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one.'**
+  String get selectAtLeastOne;
+
+  /// No description provided for @locationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a province and a district.'**
+  String get locationRequired;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @saveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save. Please try again.'**
+  String get saveFailed;
 }
 
 class _AppLocalizationsDelegate
