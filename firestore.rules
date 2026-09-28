@@ -69,6 +69,66 @@ service cloud.firestore {
             || !existsAfter(nicknamePath(nickKey(resource.data.nickname))));
     }
 
+    function gamePath(gameId) {
+      return /databases/$(database)/documents/games/$(gameId);
+    }
+
+    function validGame() {
+      let d = request.resource.data;
+      let owner = get(userPath(request.auth.uid)).data;
+      return d.keys().hasOnly(['ownerUid', 'ownerNickname', 'title', 'system', 'platform',
+                               'cityCode', 'district', 'gameType', 'campaignStage', 'frequency',
+                               'sessionAt', 'seatsTotal', 'seatsOpen', 'language',
+                               'beginnerFriendly', 'paid', 'price', 'currency', 'description',
+                               'status', 'createdAt', 'updatedAt'])
+        && d.ownerUid == request.auth.uid
+        && 'dm' in owner.roles
+        && d.ownerNickname == owner.nickname
+        && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
+        && d.system is string && d.system.size() >= 1 && d.system.size() <= 30
+        && d.platform in ['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other']
+        && (d.platform != 'in_person'
+            || (d.cityCode is int && d.cityCode >= 1 && d.cityCode <= 81
+                && d.district is string && d.district.size() >= 1 && d.district.size() <= 40))
+        && (d.platform == 'in_person' || (d.cityCode == null && d.district == null))
+        && d.gameType in ['one_shot', 'campaign']
+        && (d.gameType == 'campaign'
+            ? (d.campaignStage in ['new', 'ongoing']
+               && d.frequency in ['weekly', 'biweekly', 'monthly', 'irregular'])
+            : (d.campaignStage == null && d.frequency == null))
+        && (d.sessionAt == null || d.sessionAt is timestamp)
+        && d.seatsTotal is int && d.seatsTotal >= 1 && d.seatsTotal <= 12
+        && d.seatsOpen is int && d.seatsOpen >= 0 && d.seatsOpen <= d.seatsTotal
+        && d.language in ['tr', 'en']
+        && d.beginnerFriendly is bool
+        && d.paid is bool
+        && (d.paid ? (d.price is int && d.price >= 1 && d.price <= 100000) : d.price == null)
+        && d.currency == 'TRY'
+        && d.description is string && d.description.size() <= 2000
+        && d.status in ['open', 'full', 'closed']
+        && d.updatedAt == request.time;
+    }
+
+    // Game listings: public to signed-in users; only DMs create, only the owner edits.
+    match /games/{gameId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && validGame() && request.resource.data.createdAt == request.time;
+      allow update: if signedIn() && resource.data.ownerUid == request.auth.uid && validGame()
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if signedIn() && resource.data.ownerUid == request.auth.uid;
+
+      // Private contact note. Owner only for now; accepted players come with applications.
+      match /private/{docId} {
+        allow read: if signedIn() && get(gamePath(gameId)).data.ownerUid == request.auth.uid;
+        allow create, update: if signedIn() && docId == 'contact'
+          && getAfter(gamePath(gameId)).data.ownerUid == request.auth.uid
+          && request.resource.data.keys().hasOnly(['note'])
+          && request.resource.data.note is string && request.resource.data.note.size() <= 500;
+        // Also allowed when the game is deleted in the same batch.
+        allow delete: if signedIn() && get(gamePath(gameId)).data.ownerUid == request.auth.uid;
+      }
+    }
+
     // Nickname reservations: nicknames/{key} = { uid }. Key = nickKey(nickname).
     match /nicknames/{key} {
       allow read: if signedIn();

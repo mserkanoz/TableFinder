@@ -43,5 +43,87 @@
   "selectAtLeastOne": "Select at least one.",
   "locationRequired": "Select a province and a district.",
   "save": "Save",
-  "saveFailed": "Could not save. Please try again."
+  "saveFailed": "Could not save. Please try again.",
+
+  "postGame": "Post a game",
+  "findGame": "Find a game",
+  "myTables": "My tables",
+  "noTablesYet": "You haven't posted any games yet.",
+  "newGameTitle": "New game",
+  "editGameTitle": "Edit game",
+  "gameTitleLabel": "Title",
+  "gameTitleHint": "e.g. Curse of Strahd – beginners welcome",
+  "gameTitleError": "Enter 3–80 characters.",
+  "systemLabel": "Game system",
+  "platformLabel": "Platform",
+  "gameTypeLabel": "Game type",
+  "gameTypeOneShot": "One-shot",
+  "gameTypeCampaign": "Campaign",
+  "campaignStageLabel": "Campaign status",
+  "campaignNew": "New game",
+  "campaignOngoing": "Ongoing game",
+  "campaignOngoingHelper": "Already running and looking for new players.",
+  "frequencyLabel": "How often?",
+  "freqWeekly": "Weekly",
+  "freqBiweekly": "Every 2 weeks",
+  "freqMonthly": "Monthly",
+  "freqIrregular": "Irregular",
+  "sessionFirst": "First session",
+  "sessionNext": "Next session",
+  "sessionOptional": "Optional for ongoing games.",
+  "pickDateTime": "Pick date & time",
+  "dateRequired": "Choose a date and time.",
+  "dateInPast": "The date must be in the future.",
+  "seatsTotalLabel": "Players at the table",
+  "seatsOpenLabel": "Open seats",
+  "seatsSummary": "{open}/{total} seats open",
+  "@seatsSummary": {
+    "placeholders": {
+      "open": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "gameLanguageLabel": "Game language",
+  "langTurkish": "Turkish",
+  "langEnglish": "English",
+  "beginnerFriendlyLabel": "Beginners welcome",
+  "paidLabel": "Paid game",
+  "priceLabel": "Price per player per session (₺)",
+  "priceError": "Enter a valid amount.",
+  "free": "Free",
+  "pricePerSession": "₺{price} / session",
+  "@pricePerSession": {
+    "placeholders": {
+      "price": {"type": "int"}
+    }
+  },
+  "descriptionLabel": "Description",
+  "descriptionHint": "Setting, tone, house rules, what you expect from players…",
+  "contactNoteLabel": "Contact note (private)",
+  "contactNoteHelper": "Only players you accept will see this: Discord invite, group link, exact address…",
+  "gameLocationHelper": "Only the province and district are public. Put the exact address in the contact note.",
+  "statusLabel": "Status",
+  "statusOpen": "Open",
+  "statusFull": "Full",
+  "statusClosed": "Closed",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "deleteGameConfirm": "Delete this listing? This cannot be undone.",
+  "hostedBy": "DM: {name}",
+  "@hostedBy": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "edit": "Edit",
+  "filtersTitle": "Filters",
+  "filterAll": "All",
+  "beginnerOnly": "Beginner-friendly only",
+  "freeOnly": "Free games only",
+  "searchButton": "Search",
+  "noResults": "No games match your filters.",
+  "loadMore": "Load more",
+  "gameNotFound": "This listing no longer exists.",
+  "yourListing": "This is your listing.",
+  "applyComingSoon": "Applying to games is coming in the next update."
 }

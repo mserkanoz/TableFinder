@@ -12,3 +12,25 @@ String platformLabel(AppLocalizations l10n, String id) => switch (id) {
 
 String systemLabel(AppLocalizations l10n, String id) =>
     id == 'other' ? l10n.optionOther : gameSystems[id] ?? id;
+
+String gameTypeLabel(AppLocalizations l10n, String id) =>
+    id == 'campaign' ? l10n.gameTypeCampaign : l10n.gameTypeOneShot;
+
+String campaignStageLabel(AppLocalizations l10n, String id) =>
+    id == 'ongoing' ? l10n.campaignOngoing : l10n.campaignNew;
+
+String frequencyLabel(AppLocalizations l10n, String id) => switch (id) {
+      'weekly' => l10n.freqWeekly,
+      'biweekly' => l10n.freqBiweekly,
+      'monthly' => l10n.freqMonthly,
+      _ => l10n.freqIrregular,
+    };
+
+String gameLanguageLabel(AppLocalizations l10n, String id) =>
+    id == 'en' ? l10n.langEnglish : l10n.langTurkish;
+
+String gameStatusLabel(AppLocalizations l10n, String id) => switch (id) {
+      'full' => l10n.statusFull,
+      'closed' => l10n.statusClosed,
+      _ => l10n.statusOpen,
+    };

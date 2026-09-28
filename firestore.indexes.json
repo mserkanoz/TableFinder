@@ -1,0 +1,23 @@
+{
+  "indexes": [
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "status", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "system", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "platform", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "cityCode", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "district", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "gameType", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "language", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "beginnerFriendly", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "paid", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] }
+  ],
+  "fieldOverrides": []
+}

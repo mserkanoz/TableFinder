@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../data/game_options.dart';
 import '../../data/option_labels.dart';
-import '../../data/turkey_locations.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/form_section.dart';
+import '../../widgets/location_picker.dart';
 import '../auth/auth_service.dart';
 import 'nickname.dart';
 import 'profile_repository.dart';
@@ -132,27 +133,34 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               },
               validator: (v) => isValidNickname((v ?? '').trim()) ? null : l10n.nicknameError,
             ),
-            _Section(
+            FormSection(
               title: l10n.rolesLabel,
               helper: l10n.rolesHelper,
               error: _showErrors && _roles.isEmpty ? l10n.selectAtLeastOne : null,
               child: _chips(roleIds, _roles, (id) => roleLabel(l10n, id)),
             ),
-            _Section(
+            FormSection(
               title: l10n.systemsLabel,
               error: _showErrors && _systems.isEmpty ? l10n.selectAtLeastOne : null,
               child: _chips(gameSystems.keys, _systems, (id) => systemLabel(l10n, id)),
             ),
-            _Section(
+            FormSection(
               title: l10n.platformsLabel,
               error: _showErrors && _platforms.isEmpty ? l10n.selectAtLeastOne : null,
               child: _chips(platformIds, _platforms, (id) => platformLabel(l10n, id)),
             ),
-            _Section(
+            FormSection(
               title: l10n.locationLabel,
               helper: _locationRequired ? l10n.locationHelperRequired : l10n.locationHelperOptional,
               error: _showErrors && !_locationValid ? l10n.locationRequired : null,
-              child: _locationPickers(l10n),
+              child: LocationPicker(
+                cityCode: _cityCode,
+                district: _district,
+                onChanged: (city, district) => setState(() {
+                  _cityCode = city;
+                  _district = district;
+                }),
+              ),
             ),
             const SizedBox(height: 24),
             TextFormField(
@@ -194,78 +202,5 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       ],
     );
   }
-
-  Widget _locationPickers(AppLocalizations l10n) {
-    final province = provinceByCode(_cityCode);
-    return LayoutBuilder(
-      builder: (context, constraints) => Column(
-        children: [
-          DropdownMenu<int>(
-            width: constraints.maxWidth,
-            label: Text(l10n.cityLabel),
-            initialSelection: _cityCode,
-            enableFilter: true,
-            requestFocusOnTap: true,
-            menuHeight: 320,
-            dropdownMenuEntries: [
-              for (final p in provincesSorted) DropdownMenuEntry(value: p.code, label: p.name),
-            ],
-            onSelected: (code) => setState(() {
-              if (code != _cityCode) _district = null;
-              _cityCode = code;
-            }),
-          ),
-          const SizedBox(height: 12),
-          DropdownMenu<String>(
-            // Rebuild when the province changes so the old district is cleared.
-            key: ValueKey(_cityCode),
-            width: constraints.maxWidth,
-            label: Text(l10n.districtLabel),
-            enabled: province != null,
-            initialSelection: _district,
-            enableFilter: true,
-            requestFocusOnTap: true,
-            menuHeight: 320,
-            dropdownMenuEntries: [
-              if (province != null)
-                for (final d in sortedDistricts(province)) DropdownMenuEntry(value: d, label: d),
-            ],
-            onSelected: (d) => setState(() => _district = d),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.child, this.helper, this.error});
-
-  final String title;
-  final String? helper;
-  final String? error;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(top: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: theme.textTheme.titleMedium),
-          if (helper != null)
-            Text(helper!, style: theme.textTheme.bodySmall),
-          const SizedBox(height: 8),
-          child,
-          if (error != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(error!, style: TextStyle(color: theme.colorScheme.error)),
-            ),
-        ],
-      ),
-    );
-  }
-}

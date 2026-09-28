@@ -47,3 +47,11 @@ const gameSystems = {
   'wow_rpg': 'World of Warcraft RPG',
   'other': 'other',
 };
+
+// Game listing options.
+const gameTypeIds = ['one_shot', 'campaign'];
+const campaignStageIds = ['new', 'ongoing'];
+const frequencyIds = ['weekly', 'biweekly', 'monthly', 'irregular'];
+const gameLanguageIds = ['tr', 'en'];
+const gameStatusIds = ['open', 'full', 'closed'];
+const maxTableSize = 12;

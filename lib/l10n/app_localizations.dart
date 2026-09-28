@@ -295,6 +295,396 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save. Please try again.'**
   String get saveFailed;
+
+  /// No description provided for @postGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a game'**
+  String get postGame;
+
+  /// No description provided for @findGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a game'**
+  String get findGame;
+
+  /// No description provided for @myTables.
+  ///
+  /// In en, this message translates to:
+  /// **'My tables'**
+  String get myTables;
+
+  /// No description provided for @noTablesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t posted any games yet.'**
+  String get noTablesYet;
+
+  /// No description provided for @newGameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New game'**
+  String get newGameTitle;
+
+  /// No description provided for @editGameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit game'**
+  String get editGameTitle;
+
+  /// No description provided for @gameTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get gameTitleLabel;
+
+  /// No description provided for @gameTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Curse of Strahd – beginners welcome'**
+  String get gameTitleHint;
+
+  /// No description provided for @gameTitleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 3–80 characters.'**
+  String get gameTitleError;
+
+  /// No description provided for @systemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game system'**
+  String get systemLabel;
+
+  /// No description provided for @platformLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Platform'**
+  String get platformLabel;
+
+  /// No description provided for @gameTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game type'**
+  String get gameTypeLabel;
+
+  /// No description provided for @gameTypeOneShot.
+  ///
+  /// In en, this message translates to:
+  /// **'One-shot'**
+  String get gameTypeOneShot;
+
+  /// No description provided for @gameTypeCampaign.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaign'**
+  String get gameTypeCampaign;
+
+  /// No description provided for @campaignStageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaign status'**
+  String get campaignStageLabel;
+
+  /// No description provided for @campaignNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New game'**
+  String get campaignNew;
+
+  /// No description provided for @campaignOngoing.
+  ///
+  /// In en, this message translates to:
+  /// **'Ongoing game'**
+  String get campaignOngoing;
+
+  /// No description provided for @campaignOngoingHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Already running and looking for new players.'**
+  String get campaignOngoingHelper;
+
+  /// No description provided for @frequencyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'How often?'**
+  String get frequencyLabel;
+
+  /// No description provided for @freqWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get freqWeekly;
+
+  /// No description provided for @freqBiweekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every 2 weeks'**
+  String get freqBiweekly;
+
+  /// No description provided for @freqMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get freqMonthly;
+
+  /// No description provided for @freqIrregular.
+  ///
+  /// In en, this message translates to:
+  /// **'Irregular'**
+  String get freqIrregular;
+
+  /// No description provided for @sessionFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'First session'**
+  String get sessionFirst;
+
+  /// No description provided for @sessionNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next session'**
+  String get sessionNext;
+
+  /// No description provided for @sessionOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional for ongoing games.'**
+  String get sessionOptional;
+
+  /// No description provided for @pickDateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick date & time'**
+  String get pickDateTime;
+
+  /// No description provided for @dateRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a date and time.'**
+  String get dateRequired;
+
+  /// No description provided for @dateInPast.
+  ///
+  /// In en, this message translates to:
+  /// **'The date must be in the future.'**
+  String get dateInPast;
+
+  /// No description provided for @seatsTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Players at the table'**
+  String get seatsTotalLabel;
+
+  /// No description provided for @seatsOpenLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Open seats'**
+  String get seatsOpenLabel;
+
+  /// No description provided for @seatsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{open}/{total} seats open'**
+  String seatsSummary(int open, int total);
+
+  /// No description provided for @gameLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game language'**
+  String get gameLanguageLabel;
+
+  /// No description provided for @langTurkish.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkish'**
+  String get langTurkish;
+
+  /// No description provided for @langEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get langEnglish;
+
+  /// No description provided for @beginnerFriendlyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginners welcome'**
+  String get beginnerFriendlyLabel;
+
+  /// No description provided for @paidLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid game'**
+  String get paidLabel;
+
+  /// No description provided for @priceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price per player per session (₺)'**
+  String get priceLabel;
+
+  /// No description provided for @priceError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount.'**
+  String get priceError;
+
+  /// No description provided for @free.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get free;
+
+  /// No description provided for @pricePerSession.
+  ///
+  /// In en, this message translates to:
+  /// **'₺{price} / session'**
+  String pricePerSession(int price);
+
+  /// No description provided for @descriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get descriptionLabel;
+
+  /// No description provided for @descriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting, tone, house rules, what you expect from players…'**
+  String get descriptionHint;
+
+  /// No description provided for @contactNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact note (private)'**
+  String get contactNoteLabel;
+
+  /// No description provided for @contactNoteHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Only players you accept will see this: Discord invite, group link, exact address…'**
+  String get contactNoteHelper;
+
+  /// No description provided for @gameLocationHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Only the province and district are public. Put the exact address in the contact note.'**
+  String get gameLocationHelper;
+
+  /// No description provided for @statusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusLabel;
+
+  /// No description provided for @statusOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get statusOpen;
+
+  /// No description provided for @statusFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get statusFull;
+
+  /// No description provided for @statusClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get statusClosed;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @deleteGameConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this listing? This cannot be undone.'**
+  String get deleteGameConfirm;
+
+  /// No description provided for @hostedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'DM: {name}'**
+  String hostedBy(String name);
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @filtersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filtersTitle;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @beginnerOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner-friendly only'**
+  String get beginnerOnly;
+
+  /// No description provided for @freeOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Free games only'**
+  String get freeOnly;
+
+  /// No description provided for @searchButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchButton;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No games match your filters.'**
+  String get noResults;
+
+  /// No description provided for @loadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get loadMore;
+
+  /// No description provided for @gameNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This listing no longer exists.'**
+  String get gameNotFound;
+
+  /// No description provided for @yourListing.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your listing.'**
+  String get yourListing;
+
+  /// No description provided for @applyComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Applying to games is coming in the next update.'**
+  String get applyComingSoon;
 }
 
 class _AppLocalizationsDelegate

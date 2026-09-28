@@ -111,4 +111,211 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get saveFailed => 'Kaydedilemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String get postGame => 'İlan ver';
+
+  @override
+  String get findGame => 'İlan ara';
+
+  @override
+  String get myTables => 'Masalarım';
+
+  @override
+  String get noTablesYet => 'Henüz ilan vermedin.';
+
+  @override
+  String get newGameTitle => 'Yeni ilan';
+
+  @override
+  String get editGameTitle => 'İlanı düzenle';
+
+  @override
+  String get gameTitleLabel => 'Başlık';
+
+  @override
+  String get gameTitleHint => 'Örn. Curse of Strahd – yeni başlayanlara açık';
+
+  @override
+  String get gameTitleError => '3–80 karakter gir.';
+
+  @override
+  String get systemLabel => 'Oyun sistemi';
+
+  @override
+  String get platformLabel => 'Platform';
+
+  @override
+  String get gameTypeLabel => 'Oyun tipi';
+
+  @override
+  String get gameTypeOneShot => 'Tek seferlik';
+
+  @override
+  String get gameTypeCampaign => 'Kampanya';
+
+  @override
+  String get campaignStageLabel => 'Kampanya durumu';
+
+  @override
+  String get campaignNew => 'Yeni oyun';
+
+  @override
+  String get campaignOngoing => 'Devam eden oyun';
+
+  @override
+  String get campaignOngoingHelper =>
+      'Oyun zaten sürüyor, yeni oyuncu aranıyor.';
+
+  @override
+  String get frequencyLabel => 'Ne sıklıkla?';
+
+  @override
+  String get freqWeekly => 'Haftalık';
+
+  @override
+  String get freqBiweekly => 'İki haftada bir';
+
+  @override
+  String get freqMonthly => 'Aylık';
+
+  @override
+  String get freqIrregular => 'Düzensiz';
+
+  @override
+  String get sessionFirst => 'İlk oturum';
+
+  @override
+  String get sessionNext => 'Sonraki oturum';
+
+  @override
+  String get sessionOptional => 'Devam eden oyunlarda isteğe bağlı.';
+
+  @override
+  String get pickDateTime => 'Tarih ve saat seç';
+
+  @override
+  String get dateRequired => 'Bir tarih ve saat seç.';
+
+  @override
+  String get dateInPast => 'Tarih ileri bir zaman olmalı.';
+
+  @override
+  String get seatsTotalLabel => 'Masadaki oyuncu sayısı';
+
+  @override
+  String get seatsOpenLabel => 'Boş yer';
+
+  @override
+  String seatsSummary(int open, int total) {
+    return '$open/$total yer boş';
+  }
+
+  @override
+  String get gameLanguageLabel => 'Oyun dili';
+
+  @override
+  String get langTurkish => 'Türkçe';
+
+  @override
+  String get langEnglish => 'İngilizce';
+
+  @override
+  String get beginnerFriendlyLabel => 'Yeni başlayanlara uygun';
+
+  @override
+  String get paidLabel => 'Ücretli oyun';
+
+  @override
+  String get priceLabel => 'Oyuncu başı oturum ücreti (₺)';
+
+  @override
+  String get priceError => 'Geçerli bir tutar gir.';
+
+  @override
+  String get free => 'Ücretsiz';
+
+  @override
+  String pricePerSession(int price) {
+    return 'Oturum başı ₺$price';
+  }
+
+  @override
+  String get descriptionLabel => 'Açıklama';
+
+  @override
+  String get descriptionHint =>
+      'Evren, oyunun havası, ev kuralları, oyunculardan beklentilerin…';
+
+  @override
+  String get contactNoteLabel => 'İletişim notu (gizli)';
+
+  @override
+  String get contactNoteHelper =>
+      'Bunu sadece kabul ettiğin oyuncular görür: Discord daveti, grup linki, açık adres…';
+
+  @override
+  String get gameLocationHelper =>
+      'Herkes sadece il ve ilçeyi görür. Açık adresi iletişim notuna yaz.';
+
+  @override
+  String get statusLabel => 'Durum';
+
+  @override
+  String get statusOpen => 'Açık';
+
+  @override
+  String get statusFull => 'Dolu';
+
+  @override
+  String get statusClosed => 'Kapalı';
+
+  @override
+  String get delete => 'Sil';
+
+  @override
+  String get cancel => 'İptal';
+
+  @override
+  String get deleteGameConfirm =>
+      'Bu ilan silinsin mi? Bu işlem geri alınamaz.';
+
+  @override
+  String hostedBy(String name) {
+    return 'DM: $name';
+  }
+
+  @override
+  String get edit => 'Düzenle';
+
+  @override
+  String get filtersTitle => 'Filtreler';
+
+  @override
+  String get filterAll => 'Tümü';
+
+  @override
+  String get beginnerOnly => 'Sadece yeni başlayanlara uygun';
+
+  @override
+  String get freeOnly => 'Sadece ücretsiz oyunlar';
+
+  @override
+  String get searchButton => 'Ara';
+
+  @override
+  String get noResults => 'Filtrelere uyan ilan bulunamadı.';
+
+  @override
+  String get loadMore => 'Daha fazla yükle';
+
+  @override
+  String get gameNotFound => 'Bu ilan artık mevcut değil.';
+
+  @override
+  String get yourListing => 'Bu senin ilanın.';
+
+  @override
+  String get applyComingSoon =>
+      'İlanlara başvuru bir sonraki güncellemede geliyor.';
 }

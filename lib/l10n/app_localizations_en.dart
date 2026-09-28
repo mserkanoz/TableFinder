@@ -112,4 +112,210 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveFailed => 'Could not save. Please try again.';
+
+  @override
+  String get postGame => 'Post a game';
+
+  @override
+  String get findGame => 'Find a game';
+
+  @override
+  String get myTables => 'My tables';
+
+  @override
+  String get noTablesYet => 'You haven\'t posted any games yet.';
+
+  @override
+  String get newGameTitle => 'New game';
+
+  @override
+  String get editGameTitle => 'Edit game';
+
+  @override
+  String get gameTitleLabel => 'Title';
+
+  @override
+  String get gameTitleHint => 'e.g. Curse of Strahd – beginners welcome';
+
+  @override
+  String get gameTitleError => 'Enter 3–80 characters.';
+
+  @override
+  String get systemLabel => 'Game system';
+
+  @override
+  String get platformLabel => 'Platform';
+
+  @override
+  String get gameTypeLabel => 'Game type';
+
+  @override
+  String get gameTypeOneShot => 'One-shot';
+
+  @override
+  String get gameTypeCampaign => 'Campaign';
+
+  @override
+  String get campaignStageLabel => 'Campaign status';
+
+  @override
+  String get campaignNew => 'New game';
+
+  @override
+  String get campaignOngoing => 'Ongoing game';
+
+  @override
+  String get campaignOngoingHelper =>
+      'Already running and looking for new players.';
+
+  @override
+  String get frequencyLabel => 'How often?';
+
+  @override
+  String get freqWeekly => 'Weekly';
+
+  @override
+  String get freqBiweekly => 'Every 2 weeks';
+
+  @override
+  String get freqMonthly => 'Monthly';
+
+  @override
+  String get freqIrregular => 'Irregular';
+
+  @override
+  String get sessionFirst => 'First session';
+
+  @override
+  String get sessionNext => 'Next session';
+
+  @override
+  String get sessionOptional => 'Optional for ongoing games.';
+
+  @override
+  String get pickDateTime => 'Pick date & time';
+
+  @override
+  String get dateRequired => 'Choose a date and time.';
+
+  @override
+  String get dateInPast => 'The date must be in the future.';
+
+  @override
+  String get seatsTotalLabel => 'Players at the table';
+
+  @override
+  String get seatsOpenLabel => 'Open seats';
+
+  @override
+  String seatsSummary(int open, int total) {
+    return '$open/$total seats open';
+  }
+
+  @override
+  String get gameLanguageLabel => 'Game language';
+
+  @override
+  String get langTurkish => 'Turkish';
+
+  @override
+  String get langEnglish => 'English';
+
+  @override
+  String get beginnerFriendlyLabel => 'Beginners welcome';
+
+  @override
+  String get paidLabel => 'Paid game';
+
+  @override
+  String get priceLabel => 'Price per player per session (₺)';
+
+  @override
+  String get priceError => 'Enter a valid amount.';
+
+  @override
+  String get free => 'Free';
+
+  @override
+  String pricePerSession(int price) {
+    return '₺$price / session';
+  }
+
+  @override
+  String get descriptionLabel => 'Description';
+
+  @override
+  String get descriptionHint =>
+      'Setting, tone, house rules, what you expect from players…';
+
+  @override
+  String get contactNoteLabel => 'Contact note (private)';
+
+  @override
+  String get contactNoteHelper =>
+      'Only players you accept will see this: Discord invite, group link, exact address…';
+
+  @override
+  String get gameLocationHelper =>
+      'Only the province and district are public. Put the exact address in the contact note.';
+
+  @override
+  String get statusLabel => 'Status';
+
+  @override
+  String get statusOpen => 'Open';
+
+  @override
+  String get statusFull => 'Full';
+
+  @override
+  String get statusClosed => 'Closed';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get deleteGameConfirm => 'Delete this listing? This cannot be undone.';
+
+  @override
+  String hostedBy(String name) {
+    return 'DM: $name';
+  }
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get filtersTitle => 'Filters';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get beginnerOnly => 'Beginner-friendly only';
+
+  @override
+  String get freeOnly => 'Free games only';
+
+  @override
+  String get searchButton => 'Search';
+
+  @override
+  String get noResults => 'No games match your filters.';
+
+  @override
+  String get loadMore => 'Load more';
+
+  @override
+  String get gameNotFound => 'This listing no longer exists.';
+
+  @override
+  String get yourListing => 'This is your listing.';
+
+  @override
+  String get applyComingSoon =>
+      'Applying to games is coming in the next update.';
 }
