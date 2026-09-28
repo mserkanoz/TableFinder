@@ -20,7 +20,7 @@ class GameApplication {
   final String applicantUid;
   final String applicantNickname;
   final String message;
-  final String status; // pending | accepted | rejected | withdrawn
+  final String status; // pending | accepted | rejected | removed | withdrawn
   final DateTime? createdAt;
 
   bool get isPending => status == 'pending';

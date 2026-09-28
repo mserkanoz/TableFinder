@@ -134,6 +134,7 @@
   "appAccepted": "Accepted",
   "appRejected": "Not accepted",
   "appWithdrawn": "Withdrawn",
+  "appRemoved": "Removed from table",
   "withdraw": "Withdraw",
   "withdrawConfirm": "Withdraw your application?",
   "applyAgain": "Apply again",

@@ -344,6 +344,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get appWithdrawn => 'Geri çekildi';
 
   @override
+  String get appRemoved => 'Masadan çıkarıldı';
+
+  @override
   String get withdraw => 'Geri çek';
 
   @override

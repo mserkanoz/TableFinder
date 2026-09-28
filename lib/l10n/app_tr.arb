@@ -108,6 +108,7 @@
   "appAccepted": "Kabul edildi",
   "appRejected": "Kabul edilmedi",
   "appWithdrawn": "Geri çekildi",
+  "appRemoved": "Masadan çıkarıldı",
   "withdraw": "Geri çek",
   "withdrawConfirm": "Başvurun geri çekilsin mi?",
   "applyAgain": "Tekrar başvur",

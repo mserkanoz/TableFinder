@@ -185,7 +185,7 @@ service cloud.firestore {
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
         && request.resource.data.updatedAt == request.time
         && ((before == 'pending' && after in ['accepted', 'rejected'])
-            || (before == 'accepted' && after == 'rejected'));
+            || (before == 'accepted' && after == 'removed'));
     }
 
     // "Looking for group" posts. IDs are {uid}_1..3, which caps each player at three.
@@ -240,8 +240,15 @@ service cloud.firestore {
         && d.dmNickname == get(userPath(request.auth.uid)).data.nickname
         && d.playerUid != request.auth.uid
         && 'player' in get(userPath(d.playerUid)).data.roles
+        // Not if the player already applied (or was rejected/removed); withdrawn is fine.
+        && (!exists(applicationPath(d.gameId, d.playerUid))
+            || get(applicationPath(d.gameId, d.playerUid)).data.status == 'withdrawn')
         && d.status == 'pending'
         && d.createdAt == request.time;
+    }
+
+    function applicationPath(gameId, uid) {
+      return /databases/$(database)/documents/games/$(gameId)/applications/$(uid);
     }
 
     match /invites/{inviteId} {

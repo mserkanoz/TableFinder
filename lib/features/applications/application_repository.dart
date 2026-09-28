@@ -55,6 +55,14 @@ class ApplicationRepository {
         return counts;
       });
 
+  /// Application statuses of [playerUid] on the DM's games (gameId -> status).
+  Stream<Map<String, String>> watchStatusesForOwner(String ownerUid, String playerUid) => _db
+      .collectionGroup('applications')
+      .where('gameOwnerUid', isEqualTo: ownerUid)
+      .where('applicantUid', isEqualTo: playerUid)
+      .snapshots()
+      .map((s) => {for (final d in s.docs) d.data()['gameId'] as String: d.data()['status'] as String});
+
   /// Applies, or re-applies after withdrawing.
   Future<void> apply(GameListing game, String uid, UserProfile profile, String message) async {
     final ref = _ref(game.id!, uid);
@@ -93,10 +101,13 @@ class ApplicationRepository {
   }
 
   /// Owner: reject a pending application, or remove an accepted player
-  /// (which frees their seat and reopens a full table).
+  /// ('removed'; frees their seat and reopens a full table).
   Future<void> reject(GameListing game, GameApplication app) async {
     final batch = _db.batch();
-    batch.update(_ref(game.id!, app.applicantUid), {'status': 'rejected', 'updatedAt': FieldValue.serverTimestamp()});
+    batch.update(_ref(game.id!, app.applicantUid), {
+      'status': app.isAccepted ? 'removed' : 'rejected',
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
     if (app.isAccepted) {
       final seats = (game.seatsOpen + 1).clamp(0, game.seatsTotal);
       batch.update(_gameRef(game.id!), {

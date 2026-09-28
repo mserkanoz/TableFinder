@@ -734,6 +734,12 @@ abstract class AppLocalizations {
   /// **'Withdrawn'**
   String get appWithdrawn;
 
+  /// No description provided for @appRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from table'**
+  String get appRemoved;
+
   /// No description provided for @withdraw.
   ///
   /// In en, this message translates to:

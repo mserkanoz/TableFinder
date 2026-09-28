@@ -344,6 +344,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appWithdrawn => 'Withdrawn';
 
   @override
+  String get appRemoved => 'Removed from table';
+
+  @override
   String get withdraw => 'Withdraw';
 
   @override
