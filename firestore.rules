@@ -188,6 +188,73 @@ service cloud.firestore {
             || (before == 'accepted' && after == 'rejected'));
     }
 
+    // "Looking for group" posts. IDs are {uid}_1..3, which caps each player at three.
+    function validSeeker(postId) {
+      let d = request.resource.data;
+      let me = get(userPath(request.auth.uid)).data;
+      return d.keys().hasOnly(['ownerUid', 'ownerNickname', 'systems', 'platforms', 'cityCode',
+                               'district', 'gameTypes', 'languages', 'experience', 'availability',
+                               'openToPaid', 'description', 'status', 'createdAt', 'updatedAt'])
+        && d.ownerUid == request.auth.uid
+        && postId in [request.auth.uid + '_1', request.auth.uid + '_2', request.auth.uid + '_3']
+        && 'player' in me.roles
+        && (d.ownerNickname == me.nickname
+            || (resource != null && d.ownerNickname == resource.data.ownerNickname))
+        && d.systems is list && d.systems.size() >= 1 && d.systems.size() <= 40
+        && d.platforms is list && d.platforms.size() >= 1
+        && d.platforms.hasOnly(['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other'])
+        && ('in_person' in d.platforms
+            ? (d.cityCode is int && d.cityCode >= 1 && d.cityCode <= 81
+               && d.district is string && d.district.size() >= 1 && d.district.size() <= 40)
+            : (d.cityCode == null && d.district == null))
+        && d.gameTypes is list && d.gameTypes.size() >= 1 && d.gameTypes.hasOnly(['one_shot', 'campaign'])
+        && d.languages is list && d.languages.size() >= 1 && d.languages.hasOnly(['tr', 'en'])
+        && d.experience in ['new', 'some', 'veteran']
+        && d.availability is string && d.availability.size() <= 100
+        && d.openToPaid is bool
+        && d.description is string && d.description.size() <= 1000
+        && d.status in ['open', 'closed']
+        && d.updatedAt == request.time;
+    }
+
+    match /seekers/{postId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && validSeeker(postId) && request.resource.data.createdAt == request.time;
+      allow update: if signedIn() && resource.data.ownerUid == request.auth.uid && validSeeker(postId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if signedIn() && resource.data.ownerUid == request.auth.uid;
+    }
+
+    // Invitations: invites/{gameId}_{playerUid}. A DM invites a player to one of
+    // their open games; the player applies as usual or dismisses it.
+    function validInvite(inviteId) {
+      let d = request.resource.data;
+      let game = get(gamePath(d.gameId)).data;
+      return d.keys().hasOnly(['gameId', 'gameTitle', 'dmUid', 'dmNickname', 'playerUid', 'status', 'createdAt'])
+        && d.gameId is string && d.playerUid is string
+        && inviteId == d.gameId + '_' + d.playerUid
+        && d.dmUid == request.auth.uid
+        && game.ownerUid == request.auth.uid
+        && game.status == 'open'
+        && d.gameTitle == game.title
+        && d.dmNickname == get(userPath(request.auth.uid)).data.nickname
+        && d.playerUid != request.auth.uid
+        && 'player' in get(userPath(d.playerUid)).data.roles
+        && d.status == 'pending'
+        && d.createdAt == request.time;
+    }
+
+    match /invites/{inviteId} {
+      allow read: if signedIn()
+        && (resource.data.playerUid == request.auth.uid || resource.data.dmUid == request.auth.uid);
+      allow create: if signedIn() && validInvite(inviteId);
+      // The player can only dismiss a pending invitation.
+      allow update: if signedIn() && resource.data.playerUid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && resource.data.status == 'pending' && request.resource.data.status == 'dismissed';
+      allow delete: if signedIn() && resource.data.dmUid == request.auth.uid;
+    }
+
     // Reading applications (single docs and collection-group queries):
     // the applicant and the game owner only. Queries must filter on
     // applicantUid or gameOwnerUid for these rules to allow them.

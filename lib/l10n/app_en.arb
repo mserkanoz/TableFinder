@@ -161,5 +161,46 @@
     }
   },
   "actionFailed": "Something went wrong. Please try again.",
-  "searchFailed": "Search failed. Please try again in a moment."
+  "searchFailed": "Search failed. Please try again in a moment.",
+  "postSeeker": "Post LFG",
+  "findPlayers": "Find players",
+  "mySeekerPosts": "My LFG posts",
+  "noSeekerPostsYet": "You have no \"looking for group\" posts yet.",
+  "seekerLimitReached": "You can have up to 3 posts. Delete one to add another.",
+  "newSeekerTitle": "Looking for a group",
+  "editSeekerTitle": "Edit LFG post",
+  "lookingForGroup": "Looking for a group",
+  "gameTypesLabel": "Game types",
+  "languagesLabel": "Languages",
+  "experienceLabel": "Experience",
+  "expNew": "New to RPGs",
+  "expSome": "Some experience",
+  "expVeteran": "Veteran",
+  "availabilityLabel": "When are you available?",
+  "availabilityHint": "e.g. weekday evenings, Saturday afternoons",
+  "openToPaidLabel": "Open to paid games",
+  "seekerDescriptionHint": "What kind of game and group are you looking for?",
+  "postedBy": "Player: {name}",
+  "@postedBy": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "inviteToTable": "Invite to my table",
+  "chooseTable": "Choose a table",
+  "noOpenTables": "You have no open tables to invite to.",
+  "invited": "Invited",
+  "inviteSent": "Invitation sent.",
+  "myInvites": "Invitations",
+  "inviteText": "{dm} invited you to {game}",
+  "@inviteText": {
+    "placeholders": {
+      "dm": {"type": "String"},
+      "game": {"type": "String"}
+    }
+  },
+  "dismiss": "Dismiss",
+  "noSeekerResults": "No players match your filters.",
+  "postNotFound": "This post no longer exists.",
+  "deletePostConfirm": "Delete this post? This cannot be undone."
 }

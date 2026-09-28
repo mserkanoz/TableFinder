@@ -41,3 +41,9 @@ String applicationStatusLabel(AppLocalizations l10n, String id) => switch (id) {
       'withdrawn' => l10n.appWithdrawn,
       _ => l10n.appPending,
     };
+
+String experienceLabel(AppLocalizations l10n, String id) => switch (id) {
+      'veteran' => l10n.expVeteran,
+      'some' => l10n.expSome,
+      _ => l10n.expNew,
+    };

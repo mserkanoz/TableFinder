@@ -55,3 +55,8 @@ const frequencyIds = ['weekly', 'biweekly', 'monthly', 'irregular'];
 const gameLanguageIds = ['tr', 'en'];
 const gameStatusIds = ['open', 'full', 'closed'];
 const maxTableSize = 12;
+
+// "Looking for group" post options.
+const experienceIds = ['new', 'some', 'veteran'];
+const seekerStatusIds = ['open', 'closed'];
+const maxSeekerPosts = 3;

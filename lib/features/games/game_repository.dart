@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../invites/invite_repository.dart';
 import 'game_listing.dart';
 
 /// Search filters; null means "any".
@@ -94,6 +95,7 @@ class GameRepository {
   }
 
   Future<void> delete(String gameId, String ownerUid) async {
+    await InviteRepository.instance.deleteForGame(gameId, ownerUid);
     final apps = await _games
         .doc(gameId)
         .collection('applications')

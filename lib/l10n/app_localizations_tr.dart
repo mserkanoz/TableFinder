@@ -400,4 +400,100 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get searchFailed => 'Arama yapılamadı. Biraz sonra tekrar deneyin.';
+
+  @override
+  String get postSeeker => 'Grup ilanı ver';
+
+  @override
+  String get findPlayers => 'Oyuncu ara';
+
+  @override
+  String get mySeekerPosts => 'Grup ilanlarım';
+
+  @override
+  String get noSeekerPostsYet => 'Henüz \"grup arıyorum\" ilanın yok.';
+
+  @override
+  String get seekerLimitReached =>
+      'En fazla 3 grup ilanın olabilir. Yenisi için birini sil.';
+
+  @override
+  String get newSeekerTitle => 'Grup arıyorum';
+
+  @override
+  String get editSeekerTitle => 'Grup ilanını düzenle';
+
+  @override
+  String get lookingForGroup => 'Grup arıyor';
+
+  @override
+  String get gameTypesLabel => 'Oyun tipleri';
+
+  @override
+  String get languagesLabel => 'Diller';
+
+  @override
+  String get experienceLabel => 'Deneyim';
+
+  @override
+  String get expNew => 'Yeni başlayan';
+
+  @override
+  String get expSome => 'Biraz deneyimli';
+
+  @override
+  String get expVeteran => 'Tecrübeli';
+
+  @override
+  String get availabilityLabel => 'Ne zaman uygunsun?';
+
+  @override
+  String get availabilityHint => 'Örn. hafta içi akşamları, cumartesi gündüz';
+
+  @override
+  String get openToPaidLabel => 'Ücretli oyunlara açığım';
+
+  @override
+  String get seekerDescriptionHint => 'Nasıl bir oyun ve grup arıyorsun?';
+
+  @override
+  String postedBy(String name) {
+    return 'Oyuncu: $name';
+  }
+
+  @override
+  String get inviteToTable => 'Masama davet et';
+
+  @override
+  String get chooseTable => 'Bir masa seç';
+
+  @override
+  String get noOpenTables => 'Davet edebileceğin açık bir masan yok.';
+
+  @override
+  String get invited => 'Davet edildi';
+
+  @override
+  String get inviteSent => 'Davet gönderildi.';
+
+  @override
+  String get myInvites => 'Davetlerim';
+
+  @override
+  String inviteText(String dm, String game) {
+    return '$dm seni $game masasına davet etti';
+  }
+
+  @override
+  String get dismiss => 'Yoksay';
+
+  @override
+  String get noSeekerResults => 'Filtrelere uyan oyuncu bulunamadı.';
+
+  @override
+  String get postNotFound => 'Bu ilan artık mevcut değil.';
+
+  @override
+  String get deletePostConfirm =>
+      'Bu ilan silinsin mi? Bu işlem geri alınamaz.';
 }

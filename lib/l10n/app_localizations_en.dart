@@ -408,4 +408,100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchFailed => 'Search failed. Please try again in a moment.';
+
+  @override
+  String get postSeeker => 'Post LFG';
+
+  @override
+  String get findPlayers => 'Find players';
+
+  @override
+  String get mySeekerPosts => 'My LFG posts';
+
+  @override
+  String get noSeekerPostsYet => 'You have no \"looking for group\" posts yet.';
+
+  @override
+  String get seekerLimitReached =>
+      'You can have up to 3 posts. Delete one to add another.';
+
+  @override
+  String get newSeekerTitle => 'Looking for a group';
+
+  @override
+  String get editSeekerTitle => 'Edit LFG post';
+
+  @override
+  String get lookingForGroup => 'Looking for a group';
+
+  @override
+  String get gameTypesLabel => 'Game types';
+
+  @override
+  String get languagesLabel => 'Languages';
+
+  @override
+  String get experienceLabel => 'Experience';
+
+  @override
+  String get expNew => 'New to RPGs';
+
+  @override
+  String get expSome => 'Some experience';
+
+  @override
+  String get expVeteran => 'Veteran';
+
+  @override
+  String get availabilityLabel => 'When are you available?';
+
+  @override
+  String get availabilityHint => 'e.g. weekday evenings, Saturday afternoons';
+
+  @override
+  String get openToPaidLabel => 'Open to paid games';
+
+  @override
+  String get seekerDescriptionHint =>
+      'What kind of game and group are you looking for?';
+
+  @override
+  String postedBy(String name) {
+    return 'Player: $name';
+  }
+
+  @override
+  String get inviteToTable => 'Invite to my table';
+
+  @override
+  String get chooseTable => 'Choose a table';
+
+  @override
+  String get noOpenTables => 'You have no open tables to invite to.';
+
+  @override
+  String get invited => 'Invited';
+
+  @override
+  String get inviteSent => 'Invitation sent.';
+
+  @override
+  String get myInvites => 'Invitations';
+
+  @override
+  String inviteText(String dm, String game) {
+    return '$dm invited you to $game';
+  }
+
+  @override
+  String get dismiss => 'Dismiss';
+
+  @override
+  String get noSeekerResults => 'No players match your filters.';
+
+  @override
+  String get postNotFound => 'This post no longer exists.';
+
+  @override
+  String get deletePostConfirm => 'Delete this post? This cannot be undone.';
 }

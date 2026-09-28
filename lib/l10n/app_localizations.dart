@@ -841,6 +841,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search failed. Please try again in a moment.'**
   String get searchFailed;
+
+  /// No description provided for @postSeeker.
+  ///
+  /// In en, this message translates to:
+  /// **'Post LFG'**
+  String get postSeeker;
+
+  /// No description provided for @findPlayers.
+  ///
+  /// In en, this message translates to:
+  /// **'Find players'**
+  String get findPlayers;
+
+  /// No description provided for @mySeekerPosts.
+  ///
+  /// In en, this message translates to:
+  /// **'My LFG posts'**
+  String get mySeekerPosts;
+
+  /// No description provided for @noSeekerPostsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no \"looking for group\" posts yet.'**
+  String get noSeekerPostsYet;
+
+  /// No description provided for @seekerLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You can have up to 3 posts. Delete one to add another.'**
+  String get seekerLimitReached;
+
+  /// No description provided for @newSeekerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for a group'**
+  String get newSeekerTitle;
+
+  /// No description provided for @editSeekerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit LFG post'**
+  String get editSeekerTitle;
+
+  /// No description provided for @lookingForGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for a group'**
+  String get lookingForGroup;
+
+  /// No description provided for @gameTypesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game types'**
+  String get gameTypesLabel;
+
+  /// No description provided for @languagesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get languagesLabel;
+
+  /// No description provided for @experienceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Experience'**
+  String get experienceLabel;
+
+  /// No description provided for @expNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New to RPGs'**
+  String get expNew;
+
+  /// No description provided for @expSome.
+  ///
+  /// In en, this message translates to:
+  /// **'Some experience'**
+  String get expSome;
+
+  /// No description provided for @expVeteran.
+  ///
+  /// In en, this message translates to:
+  /// **'Veteran'**
+  String get expVeteran;
+
+  /// No description provided for @availabilityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'When are you available?'**
+  String get availabilityLabel;
+
+  /// No description provided for @availabilityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. weekday evenings, Saturday afternoons'**
+  String get availabilityHint;
+
+  /// No description provided for @openToPaidLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Open to paid games'**
+  String get openToPaidLabel;
+
+  /// No description provided for @seekerDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What kind of game and group are you looking for?'**
+  String get seekerDescriptionHint;
+
+  /// No description provided for @postedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Player: {name}'**
+  String postedBy(String name);
+
+  /// No description provided for @inviteToTable.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite to my table'**
+  String get inviteToTable;
+
+  /// No description provided for @chooseTable.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a table'**
+  String get chooseTable;
+
+  /// No description provided for @noOpenTables.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no open tables to invite to.'**
+  String get noOpenTables;
+
+  /// No description provided for @invited.
+  ///
+  /// In en, this message translates to:
+  /// **'Invited'**
+  String get invited;
+
+  /// No description provided for @inviteSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitation sent.'**
+  String get inviteSent;
+
+  /// No description provided for @myInvites.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitations'**
+  String get myInvites;
+
+  /// No description provided for @inviteText.
+  ///
+  /// In en, this message translates to:
+  /// **'{dm} invited you to {game}'**
+  String inviteText(String dm, String game);
+
+  /// No description provided for @dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get dismiss;
+
+  /// No description provided for @noSeekerResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No players match your filters.'**
+  String get noSeekerResults;
+
+  /// No description provided for @postNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This post no longer exists.'**
+  String get postNotFound;
+
+  /// No description provided for @deletePostConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this post? This cannot be undone.'**
+  String get deletePostConfirm;
 }
 
 class _AppLocalizationsDelegate

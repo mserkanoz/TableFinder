@@ -17,7 +17,21 @@
     { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
       { "fieldPath": "beginnerFriendly", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
     { "collectionGroup": "games", "queryScope": "COLLECTION", "fields": [
-      { "fieldPath": "paid", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] }
+      { "fieldPath": "paid", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "status", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "systems", "arrayConfig": "CONTAINS" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "platforms", "arrayConfig": "CONTAINS" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "languages", "arrayConfig": "CONTAINS" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "cityCode", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "district", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "experience", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] }
   ],
   "fieldOverrides": [
     { "collectionGroup": "applications", "fieldPath": "applicantUid", "indexes": [

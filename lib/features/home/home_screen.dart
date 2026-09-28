@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/game_options.dart';
 import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/page_padding.dart';
@@ -13,9 +14,17 @@ import '../games/game_form_screen.dart';
 import '../games/game_listing.dart';
 import '../games/game_repository.dart';
 import '../games/game_search_screen.dart';
+import '../invites/invite.dart';
+import '../invites/invite_repository.dart';
 import '../profile/profile_edit_screen.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
+import '../seekers/seeker_card.dart';
+import '../seekers/seeker_detail_screen.dart';
+import '../seekers/seeker_form_screen.dart';
+import '../seekers/seeker_post.dart';
+import '../seekers/seeker_repository.dart';
+import '../seekers/seeker_search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.user, required this.profile});
@@ -55,27 +64,44 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 16),
           ProfileSummaryCard(profile: profile),
           const SizedBox(height: 12),
-          Row(
-            children: [
-              if (isDm)
-                Expanded(
-                  child: FilledButton.icon(
-                    onPressed: () => _push(context, GameFormScreen(uid: user.uid, profile: profile)),
-                    icon: const Icon(Icons.add),
-                    label: Text(l10n.postGame),
-                  ),
+          if (isDm)
+            _ButtonRow(
+              left: FilledButton.icon(
+                onPressed: () => _push(context, GameFormScreen(uid: user.uid, profile: profile)),
+                icon: const Icon(Icons.add),
+                label: Text(l10n.postGame),
+              ),
+              right: FilledButton.tonalIcon(
+                onPressed: () => _push(context, SeekerSearchScreen(uid: user.uid, profile: profile)),
+                icon: const Icon(Icons.person_search_outlined),
+                label: Text(l10n.findPlayers),
+              ),
+            ),
+          if (isPlayer)
+            StreamBuilder<List<SeekerPost>>(
+              stream: SeekerRepository.instance.watchMine(user.uid),
+              builder: (context, posts) => _ButtonRow(
+                left: FilledButton.icon(
+                  onPressed: () => _push(context, GameSearchScreen(uid: user.uid, profile: profile)),
+                  icon: const Icon(Icons.search),
+                  label: Text(l10n.findGame),
                 ),
-              if (isDm && isPlayer) const SizedBox(width: 12),
-              if (isPlayer)
-                Expanded(
-                  child: FilledButton.tonalIcon(
-                    onPressed: () => _push(context, GameSearchScreen(uid: user.uid, profile: profile)),
-                    icon: const Icon(Icons.search),
-                    label: Text(l10n.findGame),
-                  ),
+                right: FilledButton.tonalIcon(
+                  onPressed: posts.data == null
+                      ? null
+                      : posts.data!.length >= maxSeekerPosts
+                          ? () => ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(l10n.seekerLimitReached)))
+                          : () => _push(
+                              context,
+                              SeekerFormScreen(uid: user.uid, profile: profile, existing: posts.data!),
+                            ),
+                  icon: const Icon(Icons.campaign_outlined),
+                  label: Text(l10n.postSeeker),
                 ),
-            ],
-          ),
+              ),
+            ),
+          if (isPlayer) _MyInvites(uid: user.uid, onOpen: openGame, heading: _heading(context, l10n.myInvites)),
           if (isDm) ...[
             _heading(context, l10n.myTables),
             _MyTables(uid: user.uid, onOpen: openGame),
@@ -83,6 +109,8 @@ class HomeScreen extends StatelessWidget {
           if (isPlayer) ...[
             _heading(context, l10n.myApplications),
             _MyApplications(uid: user.uid, onOpen: openGame),
+            _heading(context, l10n.mySeekerPosts),
+            _MySeekerPosts(uid: user.uid, profile: profile),
           ],
         ],
       ),
@@ -97,6 +125,89 @@ class HomeScreen extends StatelessWidget {
 
 void _push(BuildContext context, Widget screen) =>
     Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
+
+class _ButtonRow extends StatelessWidget {
+  const _ButtonRow({required this.left, required this.right});
+
+  final Widget left;
+  final Widget right;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Row(children: [Expanded(child: left), const SizedBox(width: 12), Expanded(child: right)]),
+      );
+}
+
+/// Pending invitations; renders nothing (not even the heading) when empty.
+class _MyInvites extends StatelessWidget {
+  const _MyInvites({required this.uid, required this.onOpen, required this.heading});
+
+  final String uid;
+  final void Function(String gameId) onOpen;
+  final Widget heading;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return StreamBuilder<List<Invite>>(
+      stream: InviteRepository.instance.watchPendingFor(uid),
+      builder: (context, snapshot) {
+        final invites = snapshot.data;
+        if (invites == null || invites.isEmpty) return const SizedBox.shrink();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            heading,
+            for (final i in invites)
+              Card(
+                color: Theme.of(context).colorScheme.secondaryContainer,
+                child: ListTile(
+                  leading: const Icon(Icons.mail_outline),
+                  title: Text(l10n.inviteText(i.dmNickname, i.gameTitle)),
+                  trailing: TextButton(
+                    onPressed: () => InviteRepository.instance.dismiss(i.id),
+                    child: Text(l10n.dismiss),
+                  ),
+                  onTap: () => onOpen(i.gameId),
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _MySeekerPosts extends StatelessWidget {
+  const _MySeekerPosts({required this.uid, required this.profile});
+
+  final String uid;
+  final UserProfile profile;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return StreamBuilder<List<SeekerPost>>(
+      stream: SeekerRepository.instance.watchMine(uid),
+      builder: (context, snapshot) {
+        final posts = snapshot.data;
+        if (posts == null) return _spinner;
+        if (posts.isEmpty) return Text(l10n.noSeekerPostsYet);
+        return Column(
+          children: [
+            for (final p in posts)
+              SeekerCard(
+                post: p,
+                showOwner: false,
+                onTap: () => _push(context, SeekerDetailScreen(postId: p.id!, uid: uid, profile: profile)),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
 
 const _spinner = Padding(padding: EdgeInsets.all(16), child: Center(child: CircularProgressIndicator()));
 

@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/page_padding.dart';
 import '../applications/application.dart';
 import '../applications/application_repository.dart';
+import '../invites/invite_repository.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
 import 'game_card.dart';
@@ -327,6 +328,7 @@ class _ApplicantPanel extends StatelessWidget {
     if (message == null) return;
     try {
       await ApplicationRepository.instance.apply(game, uid, profile, message);
+      await InviteRepository.instance.dismissIfInvited(game.id!, uid);
     } catch (e) {
       debugPrint('Apply error: $e');
       if (context.mounted) _showError(context);
