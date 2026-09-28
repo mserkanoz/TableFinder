@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../data/option_labels.dart';
 import '../../data/turkey_locations.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/page_padding.dart';
 import 'user_profile.dart';
 
 /// Roles, systems, platforms, location (and optionally bio) in a card.
@@ -56,7 +57,7 @@ class ProfileViewScreen extends StatelessWidget {
           body: profile == null
               ? Center(child: snapshot.hasData ? const Icon(Icons.person_off_outlined) : const CircularProgressIndicator())
               : ListView(
-                  padding: const EdgeInsets.all(16),
+                  padding: pagePadding(context),
                   children: [ProfileSummaryCard(profile: profile, showBio: true)],
                 ),
         );

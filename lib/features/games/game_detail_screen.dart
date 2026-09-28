@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/page_padding.dart';
 import '../applications/application.dart';
 import '../applications/application_repository.dart';
 import '../profile/profile_summary_card.dart';
@@ -49,7 +50,7 @@ class GameDetailScreen extends StatelessWidget {
             ],
           ),
           body: ListView(
-            padding: const EdgeInsets.all(16),
+            padding: pagePadding(context),
             children: [
               Text(g.title, style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 4),

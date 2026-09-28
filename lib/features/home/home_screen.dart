@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/page_padding.dart';
 import '../applications/application.dart';
 import '../applications/application_repository.dart';
 import '../auth/auth_service.dart';
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: pagePadding(context),
         children: [
           Text(l10n.welcomeUser(profile.nickname), style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),

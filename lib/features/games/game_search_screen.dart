@@ -5,6 +5,7 @@ import '../../data/game_options.dart';
 import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/location_picker.dart';
+import '../../widgets/page_padding.dart';
 import '../profile/user_profile.dart';
 import 'game_card.dart';
 import 'game_detail_screen.dart';
@@ -84,7 +85,7 @@ class _GameSearchScreenState extends State<GameSearchScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.findGame)),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+        padding: pagePadding(context, top: 8),
         children: [
           Card(
             child: ExpansionTile(

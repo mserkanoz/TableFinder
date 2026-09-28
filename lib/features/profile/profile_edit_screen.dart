@@ -6,6 +6,7 @@ import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/form_section.dart';
 import '../../widgets/location_picker.dart';
+import '../../widgets/page_padding.dart';
 import '../auth/auth_service.dart';
 import 'nickname.dart';
 import 'profile_repository.dart';
@@ -115,7 +116,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+          padding: pagePadding(context),
           children: [
             TextFormField(
               controller: _nickname,

@@ -5,6 +5,7 @@ import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/form_section.dart';
 import '../../widgets/location_picker.dart';
+import '../../widgets/page_padding.dart';
 import '../profile/user_profile.dart';
 import 'game_card.dart';
 import 'game_listing.dart';
@@ -196,7 +197,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+          padding: pagePadding(context),
           children: [
             TextFormField(
               controller: _title,
