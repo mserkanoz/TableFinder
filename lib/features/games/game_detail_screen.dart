@@ -322,39 +322,60 @@ class _ApplicantPanel extends StatelessWidget {
   }
 
   Future<void> _apply(BuildContext context) async {
-    final l10n = AppLocalizations.of(context);
-    final controller = TextEditingController();
-    final send = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.applyDialogTitle),
-        content: TextField(
-          controller: controller,
-          maxLength: 500,
-          minLines: 3,
-          maxLines: 6,
-          decoration: InputDecoration(
-            labelText: l10n.applyMessageLabel,
-            hintText: l10n.applyMessageHint,
-            border: const OutlineInputBorder(),
-            alignLabelWithHint: true,
-          ),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: Text(l10n.cancel)),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: Text(l10n.send)),
-        ],
-      ),
-    );
-    final message = controller.text.trim();
-    controller.dispose();
-    if (send != true) return;
+    final message = await showDialog<String>(context: context, builder: (_) => const _ApplyDialog());
+    if (message == null) return;
     try {
       await ApplicationRepository.instance.apply(game, uid, profile, message);
     } catch (e) {
       debugPrint('Apply error: $e');
       if (context.mounted) _showError(context);
     }
+  }
+}
+
+/// Asks for an optional message; pops with the message, or null if cancelled.
+/// Owns its controller so it is disposed only after the close animation.
+class _ApplyDialog extends StatefulWidget {
+  const _ApplyDialog();
+
+  @override
+  State<_ApplyDialog> createState() => _ApplyDialogState();
+}
+
+class _ApplyDialogState extends State<_ApplyDialog> {
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.applyDialogTitle),
+      content: TextField(
+        controller: _controller,
+        maxLength: 500,
+        minLines: 3,
+        maxLines: 6,
+        decoration: InputDecoration(
+          labelText: l10n.applyMessageLabel,
+          hintText: l10n.applyMessageHint,
+          border: const OutlineInputBorder(),
+          alignLabelWithHint: true,
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n.cancel)),
+        FilledButton(
+          onPressed: () => Navigator.pop(context, _controller.text.trim()),
+          child: Text(l10n.send),
+        ),
+      ],
+    );
   }
 }
 
