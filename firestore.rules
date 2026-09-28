@@ -12,13 +12,34 @@ service cloud.firestore {
       return signedIn() && request.auth.uid == uid;
     }
 
+    // Keep in sync with lib/features/profile/nickname.dart.
+    function validNickname(n) {
+      return n is string && n.size() >= 3 && n.size() <= 24
+        && n.matches('[A-Za-z0-9]+([ ._][A-Za-z0-9]+)*')
+        && nickKey(n).size() >= 3;
+    }
+
+    function nickKey(n) {
+      return n.lower().replace('[ ._]', '');
+    }
+
+    function nicknamePath(key) {
+      return /databases/$(database)/documents/nicknames/$(key);
+    }
+
+    function userPath(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
     function validProfile() {
       let d = request.resource.data;
       return d.keys().hasOnly(['nickname', 'roles', 'systems', 'platforms', 'cityCode',
                                'district', 'bio', 'ageConfirmed', 'createdAt', 'updatedAt'])
-        && d.nickname is string && d.nickname.size() >= 2 && d.nickname.size() <= 30
+        && validNickname(d.nickname)
+        // The nickname must be reserved by this user (in the same write).
+        && getAfter(nicknamePath(nickKey(d.nickname))).data.uid == request.auth.uid
         && d.roles is list && d.roles.size() >= 1 && d.roles.hasOnly(['player', 'dm'])
-        && d.systems is list && d.systems.size() >= 1 && d.systems.size() <= 20
+        && d.systems is list && d.systems.size() >= 1 && d.systems.size() <= 40
         && d.platforms is list && d.platforms.size() >= 1
         && d.platforms.hasOnly(['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other'])
         && (d.cityCode == null || (d.cityCode is int && d.cityCode >= 1 && d.cityCode <= 81))
@@ -28,12 +49,39 @@ service cloud.firestore {
         && d.updatedAt == request.time;
     }
 
+    // When the nickname changes, the old reservation must be released.
+    function oldNicknameReleased() {
+      let oldNick = resource.data.nickname;
+      return !validNickname(oldNick)
+        || nickKey(oldNick) == nickKey(request.resource.data.nickname)
+        || !existsAfter(nicknamePath(nickKey(oldNick)));
+    }
+
     // Public profiles: any signed-in user can read, only the owner can write.
     match /users/{uid} {
       allow read: if signedIn();
-      allow create: if isOwner(uid) && validProfile() && request.resource.data.createdAt == request.time;
-      allow update: if isOwner(uid) && validProfile() && request.resource.data.createdAt == resource.data.createdAt;
-      allow delete: if isOwner(uid);
+      allow create: if isOwner(uid) && validProfile()
+        && request.resource.data.createdAt == request.time;
+      allow update: if isOwner(uid) && validProfile() && oldNicknameReleased()
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isOwner(uid)
+        && (!validNickname(resource.data.nickname)
+            || !existsAfter(nicknamePath(nickKey(resource.data.nickname))));
+    }
+
+    // Nickname reservations: nicknames/{key} = { uid }. Key = nickKey(nickname).
+    match /nicknames/{key} {
+      allow read: if signedIn();
+      // Only reserve the nickname your profile uses after this write.
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == request.auth.uid
+        && validNickname(getAfter(userPath(request.auth.uid)).data.nickname)
+        && nickKey(getAfter(userPath(request.auth.uid)).data.nickname) == key;
+      // Release only a nickname your profile no longer uses.
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid
+        && (!existsAfter(userPath(request.auth.uid))
+            || nickKey(getAfter(userPath(request.auth.uid)).data.nickname) != key);
     }
   }
 }

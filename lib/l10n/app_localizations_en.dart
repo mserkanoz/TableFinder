@@ -46,10 +46,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nicknameHelper =>
-      'Shown to other users instead of your real name.';
+      'Shown to others instead of your real name. Must be unique.';
 
   @override
-  String get nicknameError => 'Enter 2–30 characters.';
+  String get nicknameError =>
+      'Use 3–24 characters: English letters (A–Z) and digits, with single spaces, _ or . between words.';
+
+  @override
+  String get nicknameTaken => 'This nickname is already taken.';
 
   @override
   String get rolesLabel => 'Role';

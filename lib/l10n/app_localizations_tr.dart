@@ -46,10 +46,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get nicknameHelper =>
-      'Diğer kullanıcılar gerçek adın yerine bunu görür.';
+      'Diğer kullanıcılar gerçek adın yerine bunu görür. Benzersiz olmalı.';
 
   @override
-  String get nicknameError => '2–30 karakter gir.';
+  String get nicknameError =>
+      '3–24 karakter kullan: İngilizce harfler (A–Z) ve rakamlar; kelimeler arasında tek boşluk, _ veya . olabilir.';
+
+  @override
+  String get nicknameTaken => 'Bu takma ad zaten alınmış.';
 
   @override
   String get rolesLabel => 'Rol';

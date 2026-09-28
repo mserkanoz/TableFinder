@@ -6,6 +6,7 @@ import '../../data/option_labels.dart';
 import '../../data/turkey_locations.dart';
 import '../../l10n/app_localizations.dart';
 import '../auth/auth_service.dart';
+import 'nickname.dart';
 import 'profile_repository.dart';
 import 'user_profile.dart';
 
@@ -32,6 +33,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   int? _cityCode;
   String? _district;
   bool _showErrors = false;
+  bool _nicknameTaken = false;
   bool _saving = false;
 
   @override
@@ -39,7 +41,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     super.initState();
     final p = widget.initial;
     final googleFirstName = (widget.user.displayName ?? '').split(' ').first;
-    _nickname = TextEditingController(text: p?.nickname ?? googleFirstName);
+    _nickname = TextEditingController(
+        text: p?.nickname ?? (isValidNickname(googleFirstName) ? googleFirstName : ''));
     _bio = TextEditingController(text: p?.bio ?? '');
     _roles = {...?p?.roles};
     _systems = {...?p?.systems};
@@ -78,6 +81,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       await ProfileRepository.instance.save(widget.user.uid, profile, isNew: widget.isNew);
       // New profiles are picked up by AuthGate; edits return to the previous screen.
       if (mounted && !widget.isNew) Navigator.of(context).pop();
+    } on NicknameTakenException {
+      if (mounted) setState(() => _nicknameTaken = true);
     } catch (e) {
       debugPrint('Profile save error: $e');
       if (mounted) {
@@ -113,16 +118,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           children: [
             TextFormField(
               controller: _nickname,
-              maxLength: 30,
+              maxLength: nicknameMaxLength,
               decoration: InputDecoration(
                 labelText: l10n.nicknameLabel,
                 helperText: l10n.nicknameHelper,
+                helperMaxLines: 2,
+                errorMaxLines: 3,
                 border: const OutlineInputBorder(),
               ),
-              validator: (v) {
-                final len = (v ?? '').trim().length;
-                return len < 2 || len > 30 ? l10n.nicknameError : null;
+              forceErrorText: _nicknameTaken ? l10n.nicknameTaken : null,
+              onChanged: (_) {
+                if (_nicknameTaken) setState(() => _nicknameTaken = false);
               },
+              validator: (v) => isValidNickname((v ?? '').trim()) ? null : l10n.nicknameError,
             ),
             _Section(
               title: l10n.rolesLabel,

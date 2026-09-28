@@ -167,14 +167,20 @@ abstract class AppLocalizations {
   /// No description provided for @nicknameHelper.
   ///
   /// In en, this message translates to:
-  /// **'Shown to other users instead of your real name.'**
+  /// **'Shown to others instead of your real name. Must be unique.'**
   String get nicknameHelper;
 
   /// No description provided for @nicknameError.
   ///
   /// In en, this message translates to:
-  /// **'Enter 2–30 characters.'**
+  /// **'Use 3–24 characters: English letters (A–Z) and digits, with single spaces, _ or . between words.'**
   String get nicknameError;
+
+  /// No description provided for @nicknameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'This nickname is already taken.'**
+  String get nicknameTaken;
 
   /// No description provided for @rolesLabel.
   ///
