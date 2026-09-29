@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/option_labels.dart';
 import '../../data/turkey_locations.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/page_padding.dart';
+import '../safety/safety_menu.dart';
 import 'user_profile.dart';
 
 /// Roles, systems, platforms, location (and optionally bio) in a card.
@@ -53,7 +55,13 @@ class ProfileViewScreen extends StatelessWidget {
         final doc = snapshot.data;
         final profile = doc != null && doc.exists ? UserProfile.fromMap(doc.data()!) : null;
         return Scaffold(
-          appBar: AppBar(title: Text(profile?.nickname ?? '')),
+          appBar: AppBar(
+            title: Text(profile?.nickname ?? ''),
+            actions: [
+              if (profile != null && uid != FirebaseAuth.instance.currentUser?.uid)
+                SafetyMenuButton(targetType: 'user', targetId: uid, targetUid: uid, targetNickname: profile.nickname),
+            ],
+          ),
           body: profile == null
               ? Center(child: snapshot.hasData ? const Icon(Icons.person_off_outlined) : const CircularProgressIndicator())
               : ListView(

@@ -19,6 +19,9 @@ import '../invites/invite_repository.dart';
 import '../profile/profile_edit_screen.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
+import '../safety/account_deletion.dart';
+import '../safety/block_repository.dart';
+import '../safety/blocked_users_screen.dart';
 import '../seekers/seeker_card.dart';
 import '../seekers/seeker_detail_screen.dart';
 import '../seekers/seeker_form_screen.dart';
@@ -50,10 +53,20 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.person_outline),
             onPressed: () => _push(context, ProfileEditScreen(user: user, initial: profile)),
           ),
-          IconButton(
-            tooltip: l10n.signOut,
-            icon: const Icon(Icons.logout),
-            onPressed: AuthService.instance.signOut,
+          PopupMenuButton<String>(
+            onSelected: (action) => switch (action) {
+              'blocked' => _push(context, BlockedUsersScreen(uid: user.uid)),
+              'delete' => _deleteAccount(context),
+              _ => AuthService.instance.signOut(),
+            },
+            itemBuilder: (_) => [
+              PopupMenuItem(value: 'blocked', child: Text(l10n.blockedUsers)),
+              PopupMenuItem(value: 'signout', child: Text(l10n.signOut)),
+              PopupMenuItem(
+                value: 'delete',
+                child: Text(l10n.deleteAccount, style: TextStyle(color: theme.colorScheme.error)),
+              ),
+            ],
           ),
         ],
       ),
@@ -117,6 +130,50 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _deleteAccount(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.deleteAccount),
+        content: Text(l10n.deleteAccountConfirm),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, false), child: Text(l10n.cancel)),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.error),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(l10n.deleteAccountButton),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !context.mounted) return;
+
+    // Non-dismissible progress dialog; the home screen underneath goes away
+    // as the profile and sign-in are deleted, so close it via the navigator.
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        content: Row(children: [
+          const CircularProgressIndicator(),
+          const SizedBox(width: 16),
+          Expanded(child: Text(l10n.deletingAccount)),
+        ]),
+      ),
+    );
+    try {
+      await AccountDeletion.deleteAccount(user.uid);
+    } catch (e) {
+      debugPrint('Account deletion error: $e');
+      messenger.showSnackBar(SnackBar(content: Text(l10n.deleteAccountFailed)));
+    } finally {
+      navigator.popUntil((route) => route.isFirst);
+    }
+  }
+
   Widget _heading(BuildContext context, String text) => Padding(
         padding: const EdgeInsets.only(top: 24, bottom: 8),
         child: Text(text, style: Theme.of(context).textTheme.titleMedium),
@@ -152,8 +209,10 @@ class _MyInvites extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return StreamBuilder<List<Invite>>(
       stream: InviteRepository.instance.watchPendingFor(uid),
-      builder: (context, snapshot) {
-        final invites = snapshot.data;
+      builder: (context, snapshot) => ValueListenableBuilder<Set<String>>(
+        valueListenable: BlockRepository.instance.blocked,
+        builder: (context, blocked, _) {
+        final invites = snapshot.data?.where((i) => !blocked.contains(i.dmUid)).toList();
         if (invites == null || invites.isEmpty) return const SizedBox.shrink();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -174,7 +233,8 @@ class _MyInvites extends StatelessWidget {
               ),
           ],
         );
-      },
+        },
+      ),
     );
   }
 }

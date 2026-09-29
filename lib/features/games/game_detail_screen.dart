@@ -8,6 +8,8 @@ import '../applications/application_repository.dart';
 import '../invites/invite_repository.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
+import '../safety/block_repository.dart';
+import '../safety/safety_menu.dart';
 import 'game_card.dart';
 import 'game_form_screen.dart';
 import 'game_listing.dart';
@@ -47,6 +49,13 @@ class GameDetailScreen extends StatelessWidget {
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (_) => GameFormScreen(uid: uid, profile: profile, initial: g),
                   )),
+                )
+              else
+                SafetyMenuButton(
+                  targetType: 'game',
+                  targetId: g.id!,
+                  targetUid: g.ownerUid,
+                  targetNickname: g.ownerNickname,
                 ),
             ],
           ),
@@ -175,7 +184,7 @@ class _OwnerApplications extends StatelessWidget {
     return StreamBuilder<List<GameApplication>>(
       stream: repo.watchForGame(game),
       builder: (context, snapshot) {
-        final apps = snapshot.data;
+        final apps = snapshot.data?.where((a) => !BlockRepository.instance.isBlocked(a.applicantUid)).toList();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -273,6 +282,7 @@ class _ApplicantPanel extends StatelessWidget {
     final repo = ApplicationRepository.instance;
 
     if (!profile.roles.contains('player')) return _InfoCard(l10n.playerRoleNeeded);
+    if (BlockRepository.instance.isBlocked(game.ownerUid)) return _InfoCard(l10n.blockedNotice);
 
     return StreamBuilder<GameApplication?>(
       stream: repo.watchMine(game.id!, uid),

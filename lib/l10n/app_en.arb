@@ -203,5 +203,30 @@
   "dismiss": "Dismiss",
   "noSeekerResults": "No players match your filters.",
   "postNotFound": "This post no longer exists.",
-  "deletePostConfirm": "Delete this post? This cannot be undone."
+  "deletePostConfirm": "Delete this post? This cannot be undone.",
+  "report": "Report",
+  "reportReasonLabel": "Reason",
+  "reasonSpam": "Spam",
+  "reasonHarassment": "Harassment or bullying",
+  "reasonInappropriate": "Inappropriate content",
+  "reasonFake": "Fake or misleading",
+  "reportDetailsLabel": "Details (optional)",
+  "reportSent": "Thanks. We'll review your report.",
+  "block": "Block",
+  "unblock": "Unblock",
+  "blockConfirm": "Block {name}? You won't see their listings or invitations, and they can't apply to your games or invite you.",
+  "@blockConfirm": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "userBlocked": "User blocked.",
+  "blockedUsers": "Blocked users",
+  "noBlockedUsers": "You haven't blocked anyone.",
+  "blockedNotice": "You blocked this user.",
+  "deleteAccount": "Delete account",
+  "deleteAccountConfirm": "This permanently deletes your profile, nickname, listings, LFG posts, applications and invitations. It cannot be undone. You'll be asked to confirm with your Google account.",
+  "deleteAccountButton": "Delete permanently",
+  "deletingAccount": "Deleting your account…",
+  "deleteAccountFailed": "Could not delete your account. Please try again."
 }

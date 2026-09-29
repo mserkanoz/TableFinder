@@ -34,6 +34,27 @@ class AuthService {
     }
   }
 
+  /// Asks the user to pick their Google account again. Firebase requires a
+  /// recent sign-in before deleting an account. Returns false if cancelled.
+  Future<bool> reauthenticate() async {
+    await _ensureGoogleReady();
+    try {
+      final account = await _google.authenticate();
+      final credential = GoogleAuthProvider.credential(idToken: account.authentication.idToken);
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+      return true;
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) return false;
+      rethrow;
+    }
+  }
+
+  /// Deletes the Firebase Auth user and forgets the Google account on this device.
+  Future<void> deleteCurrentUser() async {
+    await _auth.currentUser!.delete();
+    await _google.disconnect();
+  }
+
   Future<void> signOut() async {
     await _ensureGoogleReady();
     await _google.signOut();

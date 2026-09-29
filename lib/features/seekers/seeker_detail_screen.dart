@@ -9,6 +9,7 @@ import '../games/game_repository.dart';
 import '../invites/invite_repository.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
+import '../safety/safety_menu.dart';
 import 'seeker_card.dart';
 import 'seeker_form_screen.dart';
 import 'seeker_post.dart';
@@ -54,6 +55,13 @@ class SeekerDetailScreen extends StatelessWidget {
                       builder: (_) => SeekerFormScreen(uid: uid, profile: profile, initial: p),
                     ),
                   ),
+                )
+              else
+                SafetyMenuButton(
+                  targetType: 'seeker',
+                  targetId: p.id!,
+                  targetUid: p.ownerUid,
+                  targetNickname: p.ownerNickname,
                 ),
             ],
           ),

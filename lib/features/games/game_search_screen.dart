@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/location_picker.dart';
 import '../../widgets/page_padding.dart';
 import '../profile/user_profile.dart';
+import '../safety/block_repository.dart';
 import 'game_card.dart';
 import 'game_detail_screen.dart';
 import 'game_listing.dart';
@@ -64,7 +65,7 @@ class _GameSearchScreenState extends State<GameSearchScreen> {
     try {
       final page = await GameRepository.instance.search(_filters, after: more ? _cursor : null);
       setState(() {
-        _results.addAll(page.games);
+        _results.addAll(page.games.where((g) => !BlockRepository.instance.isBlocked(g.ownerUid)));
         _cursor = page.cursor;
         _hasMore = page.hasMore;
         _searched = true;

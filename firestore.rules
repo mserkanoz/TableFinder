@@ -67,6 +67,35 @@ service cloud.firestore {
       allow delete: if isOwner(uid)
         && (!validNickname(resource.data.nickname)
             || !existsAfter(nicknamePath(nickKey(resource.data.nickname))));
+
+      // Users this user blocked. Private to the owner.
+      match /blocked/{otherUid} {
+        allow read, delete: if isOwner(uid);
+        allow create: if isOwner(uid) && otherUid != uid
+          && request.resource.data.keys().hasOnly(['nickname', 'createdAt'])
+          && request.resource.data.nickname is string && request.resource.data.nickname.size() <= 30
+          && request.resource.data.createdAt == request.time;
+      }
+    }
+
+    // True if user `a` has blocked user `b`.
+    function hasBlocked(a, b) {
+      return exists(/databases/$(database)/documents/users/$(a)/blocked/$(b));
+    }
+
+    // Reports: create-only for users; reviewed in the Firebase console.
+    match /reports/{reportId} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['reporterUid', 'targetType', 'targetId', 'targetUid',
+                                                 'reason', 'details', 'status', 'createdAt'])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.targetType in ['user', 'game', 'seeker']
+        && request.resource.data.targetId is string && request.resource.data.targetId.size() <= 200
+        && request.resource.data.targetUid is string && request.resource.data.targetUid != request.auth.uid
+        && request.resource.data.reason in ['spam', 'harassment', 'inappropriate', 'fake', 'other']
+        && request.resource.data.details is string && request.resource.data.details.size() <= 500
+        && request.resource.data.status == 'open'
+        && request.resource.data.createdAt == request.time;
     }
 
     function gamePath(gameId) {
@@ -139,8 +168,9 @@ service cloud.firestore {
         allow create: if signedIn() && request.auth.uid == applicantUid && validNewApplication(gameId);
         allow update: if signedIn()
           && (applicantUpdate(gameId, applicantUid) || ownerUpdate(gameId));
-        // Only as part of deleting the whole game.
-        allow delete: if signedIn() && get(gamePath(gameId)).data.ownerUid == request.auth.uid;
+        // The game owner (deleting the game) or the applicant (deleting their account).
+        allow delete: if signedIn()
+          && (request.auth.uid == applicantUid || get(gamePath(gameId)).data.ownerUid == request.auth.uid);
       }
     }
 
@@ -152,6 +182,7 @@ service cloud.firestore {
                                'applicantNickname', 'message', 'status', 'createdAt', 'updatedAt'])
         && game.status == 'open'
         && game.ownerUid != request.auth.uid
+        && !hasBlocked(game.ownerUid, request.auth.uid)
         && 'player' in me.roles
         && d.gameId == gameId
         && d.gameTitle == game.title
@@ -240,6 +271,7 @@ service cloud.firestore {
         && d.dmNickname == get(userPath(request.auth.uid)).data.nickname
         && d.playerUid != request.auth.uid
         && 'player' in get(userPath(d.playerUid)).data.roles
+        && !hasBlocked(d.playerUid, request.auth.uid)
         // Not if the player already applied (or was rejected/removed); withdrawn is fine.
         && (!exists(applicationPath(d.gameId, d.playerUid))
             || get(applicationPath(d.gameId, d.playerUid)).data.status == 'withdrawn')
@@ -259,7 +291,8 @@ service cloud.firestore {
       allow update: if signedIn() && resource.data.playerUid == request.auth.uid
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
         && resource.data.status == 'pending' && request.resource.data.status == 'dismissed';
-      allow delete: if signedIn() && resource.data.dmUid == request.auth.uid;
+      allow delete: if signedIn()
+        && (resource.data.dmUid == request.auth.uid || resource.data.playerUid == request.auth.uid);
     }
 
     // Reading applications (single docs and collection-group queries):

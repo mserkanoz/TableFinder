@@ -499,4 +499,67 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get deletePostConfirm =>
       'Bu ilan silinsin mi? Bu işlem geri alınamaz.';
+
+  @override
+  String get report => 'Şikâyet et';
+
+  @override
+  String get reportReasonLabel => 'Sebep';
+
+  @override
+  String get reasonSpam => 'Spam';
+
+  @override
+  String get reasonHarassment => 'Taciz veya zorbalık';
+
+  @override
+  String get reasonInappropriate => 'Uygunsuz içerik';
+
+  @override
+  String get reasonFake => 'Sahte veya yanıltıcı';
+
+  @override
+  String get reportDetailsLabel => 'Açıklama (isteğe bağlı)';
+
+  @override
+  String get reportSent => 'Teşekkürler, şikâyetini inceleyeceğiz.';
+
+  @override
+  String get block => 'Engelle';
+
+  @override
+  String get unblock => 'Engeli kaldır';
+
+  @override
+  String blockConfirm(String name) {
+    return '$name engellensin mi? İlanlarını ve davetlerini görmeyeceksin; sana başvuramayacak ve seni davet edemeyecek.';
+  }
+
+  @override
+  String get userBlocked => 'Kullanıcı engellendi.';
+
+  @override
+  String get blockedUsers => 'Engellenen kullanıcılar';
+
+  @override
+  String get noBlockedUsers => 'Kimseyi engellemedin.';
+
+  @override
+  String get blockedNotice => 'Bu kullanıcıyı engelledin.';
+
+  @override
+  String get deleteAccount => 'Hesabımı sil';
+
+  @override
+  String get deleteAccountConfirm =>
+      'Bu işlem profilini, takma adını, ilanlarını, grup ilanlarını, başvurularını ve davetlerini kalıcı olarak siler. Geri alınamaz. Onay için Google hesabınla tekrar giriş yapman istenecek.';
+
+  @override
+  String get deleteAccountButton => 'Kalıcı olarak sil';
+
+  @override
+  String get deletingAccount => 'Hesabın siliniyor…';
+
+  @override
+  String get deleteAccountFailed => 'Hesabın silinemedi. Lütfen tekrar dene.';
 }

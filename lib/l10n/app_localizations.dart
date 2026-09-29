@@ -1027,6 +1027,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete this post? This cannot be undone.'**
   String get deletePostConfirm;
+
+  /// No description provided for @report.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get report;
+
+  /// No description provided for @reportReasonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reportReasonLabel;
+
+  /// No description provided for @reasonSpam.
+  ///
+  /// In en, this message translates to:
+  /// **'Spam'**
+  String get reasonSpam;
+
+  /// No description provided for @reasonHarassment.
+  ///
+  /// In en, this message translates to:
+  /// **'Harassment or bullying'**
+  String get reasonHarassment;
+
+  /// No description provided for @reasonInappropriate.
+  ///
+  /// In en, this message translates to:
+  /// **'Inappropriate content'**
+  String get reasonInappropriate;
+
+  /// No description provided for @reasonFake.
+  ///
+  /// In en, this message translates to:
+  /// **'Fake or misleading'**
+  String get reasonFake;
+
+  /// No description provided for @reportDetailsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Details (optional)'**
+  String get reportDetailsLabel;
+
+  /// No description provided for @reportSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks. We\'ll review your report.'**
+  String get reportSent;
+
+  /// No description provided for @block.
+  ///
+  /// In en, this message translates to:
+  /// **'Block'**
+  String get block;
+
+  /// No description provided for @unblock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unblock'**
+  String get unblock;
+
+  /// No description provided for @blockConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Block {name}? You won\'t see their listings or invitations, and they can\'t apply to your games or invite you.'**
+  String blockConfirm(String name);
+
+  /// No description provided for @userBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'User blocked.'**
+  String get userBlocked;
+
+  /// No description provided for @blockedUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked users'**
+  String get blockedUsers;
+
+  /// No description provided for @noBlockedUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t blocked anyone.'**
+  String get noBlockedUsers;
+
+  /// No description provided for @blockedNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'You blocked this user.'**
+  String get blockedNotice;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes your profile, nickname, listings, LFG posts, applications and invitations. It cannot be undone. You\'ll be asked to confirm with your Google account.'**
+  String get deleteAccountConfirm;
+
+  /// No description provided for @deleteAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete permanently'**
+  String get deleteAccountButton;
+
+  /// No description provided for @deletingAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your account…'**
+  String get deletingAccount;
+
+  /// No description provided for @deleteAccountFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete your account. Please try again.'**
+  String get deleteAccountFailed;
 }
 
 class _AppLocalizationsDelegate

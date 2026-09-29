@@ -9,6 +9,7 @@ import 'features/home/home_screen.dart';
 import 'features/profile/profile_edit_screen.dart';
 import 'features/profile/profile_repository.dart';
 import 'features/profile/user_profile.dart';
+import 'features/safety/block_repository.dart';
 import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
@@ -49,7 +50,11 @@ class AuthGate extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) return _loading;
         final user = snapshot.data;
-        if (user == null) return const SignInScreen();
+        if (user == null) {
+          BlockRepository.instance.stop();
+          return const SignInScreen();
+        }
+        BlockRepository.instance.start(user.uid);
         return _ProfileGate(key: ValueKey(user.uid), user: user);
       },
     );

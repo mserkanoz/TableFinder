@@ -507,4 +507,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deletePostConfirm => 'Delete this post? This cannot be undone.';
+
+  @override
+  String get report => 'Report';
+
+  @override
+  String get reportReasonLabel => 'Reason';
+
+  @override
+  String get reasonSpam => 'Spam';
+
+  @override
+  String get reasonHarassment => 'Harassment or bullying';
+
+  @override
+  String get reasonInappropriate => 'Inappropriate content';
+
+  @override
+  String get reasonFake => 'Fake or misleading';
+
+  @override
+  String get reportDetailsLabel => 'Details (optional)';
+
+  @override
+  String get reportSent => 'Thanks. We\'ll review your report.';
+
+  @override
+  String get block => 'Block';
+
+  @override
+  String get unblock => 'Unblock';
+
+  @override
+  String blockConfirm(String name) {
+    return 'Block $name? You won\'t see their listings or invitations, and they can\'t apply to your games or invite you.';
+  }
+
+  @override
+  String get userBlocked => 'User blocked.';
+
+  @override
+  String get blockedUsers => 'Blocked users';
+
+  @override
+  String get noBlockedUsers => 'You haven\'t blocked anyone.';
+
+  @override
+  String get blockedNotice => 'You blocked this user.';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get deleteAccountConfirm =>
+      'This permanently deletes your profile, nickname, listings, LFG posts, applications and invitations. It cannot be undone. You\'ll be asked to confirm with your Google account.';
+
+  @override
+  String get deleteAccountButton => 'Delete permanently';
+
+  @override
+  String get deletingAccount => 'Deleting your account…';
+
+  @override
+  String get deleteAccountFailed =>
+      'Could not delete your account. Please try again.';
 }

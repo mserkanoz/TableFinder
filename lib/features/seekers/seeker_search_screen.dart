@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/location_picker.dart';
 import '../../widgets/page_padding.dart';
 import '../profile/user_profile.dart';
+import '../safety/block_repository.dart';
 import 'seeker_card.dart';
 import 'seeker_detail_screen.dart';
 import 'seeker_post.dart';
@@ -64,7 +65,8 @@ class _SeekerSearchScreenState extends State<SeekerSearchScreen> {
       if (!mounted) return;
       setState(() {
         // Don't list the searcher's own posts.
-        _results.addAll(page.posts.where((p) => p.ownerUid != widget.uid));
+        _results.addAll(page.posts.where(
+            (p) => p.ownerUid != widget.uid && !BlockRepository.instance.isBlocked(p.ownerUid)));
         _cursor = page.cursor;
         _hasMore = page.hasMore;
         _searched = true;
