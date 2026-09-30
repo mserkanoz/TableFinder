@@ -562,4 +562,37 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get deleteAccountFailed => 'Hesabın silinemedi. Lütfen tekrar dene.';
+
+  @override
+  String get messages => 'Mesajlar';
+
+  @override
+  String get noChats =>
+      'Henüz konuşman yok. Bir ilandan DM\'e, bir başvurudan veya grup ilanından oyuncuya mesaj atabilirsin.';
+
+  @override
+  String get messageDm => 'DM\'e mesaj gönder';
+
+  @override
+  String get messagePlayer => 'Mesaj gönder';
+
+  @override
+  String get messageHint => 'Mesaj yaz…';
+
+  @override
+  String get deletedUser => 'Silinmiş kullanıcı';
+
+  @override
+  String get chatClosed =>
+      'Bu kullanıcı hesabını sildi. Geçmişi okuyabilirsin ama mesaj gönderemezsin.';
+
+  @override
+  String get chatBlocked =>
+      'Bu kullanıcıyı engelledin. Mesaj göndermek için engeli kaldır.';
+
+  @override
+  String get youPrefix => 'Sen: ';
+
+  @override
+  String get noMessagesYet => 'Henüz mesaj yok. Bir merhaba de!';
 }

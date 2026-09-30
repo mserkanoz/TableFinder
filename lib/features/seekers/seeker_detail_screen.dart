@@ -4,6 +4,8 @@ import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/page_padding.dart';
 import '../applications/application_repository.dart';
+import '../chat/chat.dart';
+import '../chat/open_chat.dart';
 import '../games/game_listing.dart';
 import '../games/game_repository.dart';
 import '../invites/invite_repository.dart';
@@ -115,6 +117,19 @@ class SeekerDetailScreen extends StatelessWidget {
                   ),
                   icon: const Icon(Icons.mail_outline),
                   label: Text(l10n.inviteToTable),
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton.icon(
+                  onPressed: () => openChat(
+                    context,
+                    me: uid,
+                    myNickname: profile.nickname,
+                    otherUid: p.ownerUid,
+                    otherNickname: p.ownerNickname,
+                    chatContext: ChatContext.seeker(p.id!, l10n.lookingForGroup),
+                  ),
+                  icon: const Icon(Icons.chat_bubble_outline),
+                  label: Text(l10n.messagePlayer),
                 ),
               ],
             ],

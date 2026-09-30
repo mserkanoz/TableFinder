@@ -176,5 +176,15 @@
   "deleteAccountConfirm": "Bu işlem profilini, takma adını, ilanlarını, grup ilanlarını, başvurularını ve davetlerini kalıcı olarak siler. Geri alınamaz. Onay için Google hesabınla tekrar giriş yapman istenecek.",
   "deleteAccountButton": "Kalıcı olarak sil",
   "deletingAccount": "Hesabın siliniyor…",
-  "deleteAccountFailed": "Hesabın silinemedi. Lütfen tekrar dene."
+  "deleteAccountFailed": "Hesabın silinemedi. Lütfen tekrar dene.",
+  "messages": "Mesajlar",
+  "noChats": "Henüz konuşman yok. Bir ilandan DM'e, bir başvurudan veya grup ilanından oyuncuya mesaj atabilirsin.",
+  "messageDm": "DM'e mesaj gönder",
+  "messagePlayer": "Mesaj gönder",
+  "messageHint": "Mesaj yaz…",
+  "deletedUser": "Silinmiş kullanıcı",
+  "chatClosed": "Bu kullanıcı hesabını sildi. Geçmişi okuyabilirsin ama mesaj gönderemezsin.",
+  "chatBlocked": "Bu kullanıcıyı engelledin. Mesaj göndermek için engeli kaldır.",
+  "youPrefix": "Sen: ",
+  "noMessagesYet": "Henüz mesaj yok. Bir merhaba de!"
 }

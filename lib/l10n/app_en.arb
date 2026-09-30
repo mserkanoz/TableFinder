@@ -228,5 +228,15 @@
   "deleteAccountConfirm": "This permanently deletes your profile, nickname, listings, LFG posts, applications and invitations. It cannot be undone. You'll be asked to confirm with your Google account.",
   "deleteAccountButton": "Delete permanently",
   "deletingAccount": "Deleting your account…",
-  "deleteAccountFailed": "Could not delete your account. Please try again."
+  "deleteAccountFailed": "Could not delete your account. Please try again.",
+  "messages": "Messages",
+  "noChats": "No conversations yet. You can message a DM from their listing, or a player from their application or LFG post.",
+  "messageDm": "Message the DM",
+  "messagePlayer": "Send message",
+  "messageHint": "Write a message…",
+  "deletedUser": "Deleted user",
+  "chatClosed": "This user deleted their account. You can read the history but can't send messages.",
+  "chatBlocked": "You blocked this user. Unblock them to send messages.",
+  "youPrefix": "You: ",
+  "noMessagesYet": "No messages yet. Say hello!"
 }

@@ -1147,6 +1147,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not delete your account. Please try again.'**
   String get deleteAccountFailed;
+
+  /// No description provided for @messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get messages;
+
+  /// No description provided for @noChats.
+  ///
+  /// In en, this message translates to:
+  /// **'No conversations yet. You can message a DM from their listing, or a player from their application or LFG post.'**
+  String get noChats;
+
+  /// No description provided for @messageDm.
+  ///
+  /// In en, this message translates to:
+  /// **'Message the DM'**
+  String get messageDm;
+
+  /// No description provided for @messagePlayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Send message'**
+  String get messagePlayer;
+
+  /// No description provided for @messageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a message…'**
+  String get messageHint;
+
+  /// No description provided for @deletedUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted user'**
+  String get deletedUser;
+
+  /// No description provided for @chatClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'This user deleted their account. You can read the history but can\'t send messages.'**
+  String get chatClosed;
+
+  /// No description provided for @chatBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'You blocked this user. Unblock them to send messages.'**
+  String get chatBlocked;
+
+  /// No description provided for @youPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'You: '**
+  String get youPrefix;
+
+  /// No description provided for @noMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet. Say hello!'**
+  String get noMessagesYet;
 }
 
 class _AppLocalizationsDelegate

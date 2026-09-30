@@ -5,6 +5,8 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/page_padding.dart';
 import '../applications/application.dart';
 import '../applications/application_repository.dart';
+import '../chat/chat.dart';
+import '../chat/open_chat.dart';
 import '../invites/invite_repository.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
@@ -73,9 +75,26 @@ class GameDetailScreen extends StatelessWidget {
               _GameFacts(game: g),
               const SizedBox(height: 24),
               if (isOwner)
-                _OwnerApplications(game: g)
-              else
+                _OwnerApplications(game: g, profile: profile)
+              else ...[
+                if (!BlockRepository.instance.isBlocked(g.ownerUid))
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: OutlinedButton.icon(
+                      onPressed: () => openChat(
+                        context,
+                        me: uid,
+                        myNickname: profile.nickname,
+                        otherUid: g.ownerUid,
+                        otherNickname: g.ownerNickname,
+                        chatContext: ChatContext.game(g.id!, g.title),
+                      ),
+                      icon: const Icon(Icons.chat_bubble_outline),
+                      label: Text(l10n.messageDm),
+                    ),
+                  ),
                 _ApplicantPanel(game: g, uid: uid, profile: profile),
+              ],
             ],
           ),
         );
@@ -172,9 +191,10 @@ class _GameFacts extends StatelessWidget {
 
 /// Owner view: everyone who applied, with accept / reject / remove actions.
 class _OwnerApplications extends StatelessWidget {
-  const _OwnerApplications({required this.game});
+  const _OwnerApplications({required this.game, required this.profile});
 
   final GameListing game;
+  final UserProfile profile;
 
   @override
   Widget build(BuildContext context) {
@@ -211,6 +231,18 @@ class _OwnerApplications extends StatelessWidget {
                                 child: Text(a.applicantNickname,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
+                              ),
+                            ),
+                            IconButton(
+                              tooltip: l10n.messagePlayer,
+                              icon: const Icon(Icons.chat_bubble_outline),
+                              onPressed: () => openChat(
+                                context,
+                                me: game.ownerUid,
+                                myNickname: profile.nickname,
+                                otherUid: a.applicantUid,
+                                otherNickname: a.applicantNickname,
+                                chatContext: ChatContext.game(game.id!, game.title),
                               ),
                             ),
                             Chip(

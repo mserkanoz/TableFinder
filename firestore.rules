@@ -295,6 +295,102 @@ service cloud.firestore {
         && (resource.data.dmUid == request.auth.uid || resource.data.playerUid == request.auth.uid);
     }
 
+    // Chats: chats/{uidA}_{uidB} (UIDs sorted) with messages below.
+    // A chat can only be started from a listing:
+    //  - game: messaging the game's DM, or the DM messaging someone who applied;
+    //  - seeker: a DM messaging the owner of a "looking for group" post.
+    function chatOther(members) {
+      return members[0] == request.auth.uid ? members[1] : members[0];
+    }
+
+    function chatPath(chatId) {
+      return /databases/$(database)/documents/chats/$(chatId);
+    }
+
+    function validChatContext(d, other) {
+      return (d.contextType == 'game'
+              && d.contextTitle == get(gamePath(d.contextId)).data.title
+              && (get(gamePath(d.contextId)).data.ownerUid == other
+                  || (get(gamePath(d.contextId)).data.ownerUid == request.auth.uid
+                      && exists(applicationPath(d.contextId, other)))))
+        || (d.contextType == 'seeker'
+            && get(/databases/$(database)/documents/seekers/$(d.contextId)).data.ownerUid == other
+            && 'dm' in get(userPath(request.auth.uid)).data.roles);
+    }
+
+    function validNewChat(chatId) {
+      let d = request.resource.data;
+      let other = chatOther(d.members);
+      return d.keys().hasOnly(['members', 'nicknames', 'contextType', 'contextId', 'contextTitle',
+                               'lastMessage', 'lastSenderUid', 'readAt', 'closed', 'deletedUids',
+                               'createdAt', 'updatedAt'])
+        && d.members is list && d.members.size() == 2
+        && request.auth.uid in d.members && other != request.auth.uid
+        && d.members[0] < d.members[1]
+        && chatId == d.members[0] + '_' + d.members[1]
+        && d.nicknames is map && d.nicknames.keys().hasOnly(d.members)
+        // Your own name must be real; the other name is only a display hint for you.
+        && d.nicknames[request.auth.uid] == get(userPath(request.auth.uid)).data.nickname
+        && d.nicknames[other] is string && d.nicknames[other].size() <= 30
+        && d.contextId is string && d.contextTitle is string && d.contextTitle.size() <= 80
+        && validChatContext(d, other)
+        && !hasBlocked(other, request.auth.uid) && !hasBlocked(request.auth.uid, other)
+        && d.lastMessage == '' && d.lastSenderUid == null
+        && d.readAt is map && d.readAt.size() == 0
+        && d.closed == false && d.deletedUids is list && d.deletedUids.size() == 0
+        && d.createdAt == request.time && d.updatedAt == request.time;
+    }
+
+    // Sending (last message summary) and/or marking your own read time.
+    function chatActivityUpdate() {
+      let d = request.resource.data;
+      let changed = d.diff(resource.data).affectedKeys();
+      return changed.hasOnly(['lastMessage', 'lastSenderUid', 'updatedAt', 'readAt'])
+        && d.readAt.diff(resource.data.readAt).affectedKeys().hasOnly([request.auth.uid])
+        && (!('readAt' in changed) || d.readAt[request.auth.uid] == request.time)
+        && (!changed.hasAny(['lastMessage', 'lastSenderUid', 'updatedAt'])
+            || (!resource.data.closed
+                && d.lastSenderUid == request.auth.uid
+                && d.updatedAt == request.time
+                && d.lastMessage is string && d.lastMessage.size() <= 110));
+    }
+
+    // Deleting your account: close the chat and drop your nickname; history stays.
+    function chatArchiveUpdate() {
+      let d = request.resource.data;
+      return d.diff(resource.data).affectedKeys().hasOnly(['closed', 'deletedUids', 'nicknames'])
+        && d.closed == true
+        && d.deletedUids.toSet() == resource.data.deletedUids.toSet().union([request.auth.uid].toSet())
+        && d.nicknames.diff(resource.data.nicknames).affectedKeys().hasOnly([request.auth.uid])
+        && d.nicknames[request.auth.uid] == '';
+    }
+
+    function validMessage(chatId) {
+      let d = request.resource.data;
+      let chat = get(chatPath(chatId)).data;
+      let other = chatOther(chat.members);
+      return d.keys().hasOnly(['senderUid', 'text', 'createdAt'])
+        && request.auth.uid in chat.members
+        && !chat.closed
+        && !hasBlocked(other, request.auth.uid) && !hasBlocked(request.auth.uid, other)
+        && d.senderUid == request.auth.uid
+        && d.text is string && d.text.size() >= 1 && d.text.size() <= 1000
+        && d.createdAt == request.time;
+    }
+
+    match /chats/{chatId} {
+      allow get: if signedIn() && request.auth.uid in chatId.split('_');
+      allow list: if signedIn() && request.auth.uid in resource.data.members;
+      allow create: if signedIn() && validNewChat(chatId);
+      allow update: if signedIn() && request.auth.uid in resource.data.members
+        && (chatActivityUpdate() || chatArchiveUpdate());
+
+      match /messages/{messageId} {
+        allow read: if signedIn() && request.auth.uid in chatId.split('_');
+        allow create: if signedIn() && validMessage(chatId);
+      }
+    }
+
     // Reading applications (single docs and collection-group queries):
     // the applicant and the game owner only. Queries must filter on
     // applicantUid or gameOwnerUid for these rules to allow them.

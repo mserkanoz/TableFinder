@@ -571,4 +571,37 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteAccountFailed =>
       'Could not delete your account. Please try again.';
+
+  @override
+  String get messages => 'Messages';
+
+  @override
+  String get noChats =>
+      'No conversations yet. You can message a DM from their listing, or a player from their application or LFG post.';
+
+  @override
+  String get messageDm => 'Message the DM';
+
+  @override
+  String get messagePlayer => 'Send message';
+
+  @override
+  String get messageHint => 'Write a message…';
+
+  @override
+  String get deletedUser => 'Deleted user';
+
+  @override
+  String get chatClosed =>
+      'This user deleted their account. You can read the history but can\'t send messages.';
+
+  @override
+  String get chatBlocked =>
+      'You blocked this user. Unblock them to send messages.';
+
+  @override
+  String get youPrefix => 'You: ';
+
+  @override
+  String get noMessagesYet => 'No messages yet. Say hello!';
 }

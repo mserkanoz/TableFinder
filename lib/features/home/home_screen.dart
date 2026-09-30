@@ -8,6 +8,9 @@ import '../../widgets/page_padding.dart';
 import '../applications/application.dart';
 import '../applications/application_repository.dart';
 import '../auth/auth_service.dart';
+import '../chat/chat.dart';
+import '../chat/chat_list_screen.dart';
+import '../chat/chat_repository.dart';
 import '../games/game_card.dart';
 import '../games/game_detail_screen.dart';
 import '../games/game_form_screen.dart';
@@ -48,6 +51,26 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
+          StreamBuilder<List<Chat>>(
+            stream: ChatRepository.instance.watchMine(user.uid),
+            builder: (context, snapshot) => ValueListenableBuilder<Set<String>>(
+              valueListenable: BlockRepository.instance.blocked,
+              builder: (context, blocked, _) {
+                final unread = (snapshot.data ?? const <Chat>[])
+                    .where((c) => c.isUnreadFor(user.uid) && !blocked.contains(c.otherUid(user.uid)))
+                    .length;
+                return IconButton(
+                  tooltip: l10n.messages,
+                  icon: Badge(
+                    isLabelVisible: unread > 0,
+                    label: Text('$unread'),
+                    child: const Icon(Icons.chat_bubble_outline),
+                  ),
+                  onPressed: () => _push(context, ChatListScreen(uid: user.uid)),
+                );
+              },
+            ),
+          ),
           IconButton(
             tooltip: l10n.profileEditTitle,
             icon: const Icon(Icons.person_outline),

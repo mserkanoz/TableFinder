@@ -31,7 +31,9 @@
     { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
       { "fieldPath": "district", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
     { "collectionGroup": "seekers", "queryScope": "COLLECTION", "fields": [
-      { "fieldPath": "experience", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] }
+      { "fieldPath": "experience", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" } ] },
+    { "collectionGroup": "chats", "queryScope": "COLLECTION", "fields": [
+      { "fieldPath": "members", "arrayConfig": "CONTAINS" }, { "fieldPath": "updatedAt", "order": "DESCENDING" } ] }
   ],
   "fieldOverrides": [
     { "collectionGroup": "applications", "fieldPath": "applicantUid", "indexes": [

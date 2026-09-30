@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../auth/auth_service.dart';
+import '../chat/chat_repository.dart';
 import '../games/game_repository.dart';
 import '../profile/nickname.dart';
 
 /// Deletes everything the user owns, then their sign-in.
 ///
-/// Reports they filed are kept for moderation (users can't read them anyway).
+/// Chats are archived rather than deleted (see [ChatRepository.archiveAllFor]);
+/// reports they filed are kept for moderation (users can't read them anyway).
 class AccountDeletion {
   AccountDeletion._();
 
@@ -33,6 +35,9 @@ class AccountDeletion {
       batch.delete(d.reference);
     }
     await batch.commit();
+
+    // Chats are closed and kept for the other member, without this user's nickname.
+    await ChatRepository.instance.archiveAllFor(uid);
 
     // Profile and nickname reservation go together (the rules require it).
     final user = await db.collection('users').doc(uid).get();
