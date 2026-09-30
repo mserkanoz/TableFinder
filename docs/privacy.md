@@ -4,7 +4,7 @@ title: TableFinder – Gizlilik Politikası / Privacy Policy
 
 # TableFinder Gizlilik Politikası
 
-**Son güncelleme:** 29 Eylül 2026
+**Son güncelleme:** 30 Eylül 2026
 
 Bu politika, TableFinder mobil uygulamasının ("Uygulama") hangi kişisel verileri topladığını, bunları nasıl kullandığını ve haklarını açıklar. Uygulama, masaüstü rol yapma oyunu (FRP) oyuncularının ve oyun yöneticilerinin (DM/GM) birbirini bulmasını sağlar.
 
@@ -21,6 +21,7 @@ Bu politika, TableFinder mobil uygulamasının ("Uygulama") hangi kişisel veril
 | "Grup arıyorum" ilanları | İlan formu | Giriş yapmış tüm kullanıcılar |
 | Başvurular ve başvuru mesajları | Başvuru formu | Başvuran ve ilan sahibi |
 | Davetler | DM'in davet işlemi | Davet eden ve davet edilen |
+| Mesajlar ve konuşma bilgileri (katılımcılar, son mesaj, okunma zamanı) | Uygulama içi mesajlaşma | Yalnızca konuşmanın iki tarafı |
 | Engellenen kullanıcılar listesi | Engelleme işlemi | Yalnızca sen |
 | Şikâyetler (şikâyet eden, şikâyet edilen, sebep, açıklama) | Şikâyet formu | Yalnızca Uygulama yöneticisi |
 
@@ -30,7 +31,7 @@ Uygulama; konum (GPS), rehber, fotoğraf, mikrofon veya benzeri cihaz verilerine
 
 - Hesabını oluşturmak ve seni tanımak,
 - Profilini, ilanlarını ve başvurularını diğer kullanıcılara göstermek,
-- Oyuncularla oyun yöneticilerini eşleştirmek (arama, başvuru, davet),
+- Oyuncularla oyun yöneticilerini eşleştirmek (arama, başvuru, davet, mesajlaşma),
 - Kötüye kullanımı önlemek (engelleme, şikâyetlerin incelenmesi).
 
 Verilerin **satılmaz** ve reklam amacıyla üçüncü kişilerle paylaşılmaz.
@@ -48,6 +49,7 @@ Bu nedenle verilerin Türkiye dışındaki sunucularda saklanır. Google'ın giz
 
 - Hesap verilerin, hesabını silene kadar saklanır.
 - Hesabını sildiğinde profilin, takma adın, ilanların, grup ilanların, başvuruların, davetlerin ve engelleme listen **hemen ve kalıcı olarak** silinir.
+- **Mesajlar:** Hesabını sildiğinde konuşmaların kapatılır ve yeni mesaj gönderilemez. Karşı tarafın konuşma geçmişini kaybetmemesi için **gönderdiğin mesajlar karşı tarafta görünmeye devam eder**; adın yerine "Silinmiş kullanıcı" gösterilir ve profiline erişilemez. Bu mesajların da silinmesini istersen support@tablefinder.app adresine yazabilirsin.
 - Gönderdiğin veya hakkında yapılan şikâyetler, kötüye kullanımın önlenmesi amacıyla en fazla **12 ay** saklanır, ardından silinir.
 
 ## 5. Hesabını silme
@@ -70,7 +72,7 @@ Bu politika güncellenebilir. Önemli değişiklikler (ör. reklam veya ücretli
 
 # TableFinder Privacy Policy
 
-**Last updated:** September 29, 2026
+**Last updated:** September 30, 2026
 
 This policy explains what personal data the TableFinder mobile app ("App") collects, how it is used, and your rights. The App helps tabletop role-playing game players and game masters (DM/GM) find each other.
 
@@ -87,6 +89,7 @@ This policy explains what personal data the TableFinder mobile app ("App") colle
 | "Looking for group" posts | Post form | All signed-in users |
 | Applications and application messages | Apply form | Applicant and listing owner |
 | Invitations | DM's invite action | Inviter and invitee |
+| Messages and conversation details (participants, last message, read time) | In-app messaging | The two participants only |
 | Your blocked users list | Blocking | You only |
 | Reports (reporter, reported user, reason, details) | Report form | App administrator only |
 
@@ -96,7 +99,7 @@ The App does **not** access your location (GPS), contacts, photos, microphone or
 
 - To create and identify your account,
 - To show your profile, listings and applications to other users,
-- To match players with game masters (search, applications, invitations),
+- To match players with game masters (search, applications, invitations, messaging),
 - To prevent abuse (blocking, reviewing reports).
 
 Your data is **not sold** and not shared with third parties for advertising.
@@ -114,6 +117,7 @@ Your data is therefore stored on servers outside Turkey. Google's privacy policy
 
 - Account data is kept until you delete your account.
 - When you delete your account, your profile, nickname, listings, LFG posts, applications, invitations and blocked list are deleted **immediately and permanently**.
+- **Messages:** When you delete your account, your conversations are closed and no new messages can be sent. So the other person doesn't lose their conversation history, **messages you sent remain visible to them**, shown as from "Deleted user" with no link to your profile. If you want these messages deleted too, email support@tablefinder.app.
 - Reports you filed or that concern you are kept for up to **12 months** to prevent abuse, then deleted.
 
 ## 5. Deleting your account
