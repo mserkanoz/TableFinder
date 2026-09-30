@@ -1207,6 +1207,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No messages yet. Say hello!'**
   String get noMessagesYet;
+
+  /// No description provided for @open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get open;
 }
 
 class _AppLocalizationsDelegate

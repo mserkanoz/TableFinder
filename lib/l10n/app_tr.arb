@@ -186,5 +186,6 @@
   "chatClosed": "Bu kullanıcı hesabını sildi. Geçmişi okuyabilirsin ama mesaj gönderemezsin.",
   "chatBlocked": "Bu kullanıcıyı engelledin. Mesaj göndermek için engeli kaldır.",
   "youPrefix": "Sen: ",
-  "noMessagesYet": "Henüz mesaj yok. Bir merhaba de!"
+  "noMessagesYet": "Henüz mesaj yok. Bir merhaba de!",
+  "open": "Aç"
 }

@@ -19,6 +19,7 @@ import '../games/game_repository.dart';
 import '../games/game_search_screen.dart';
 import '../invites/invite.dart';
 import '../invites/invite_repository.dart';
+import '../notifications/push_service.dart';
 import '../profile/profile_edit_screen.dart';
 import '../profile/profile_summary_card.dart';
 import '../profile/user_profile.dart';
@@ -80,7 +81,7 @@ class HomeScreen extends StatelessWidget {
             onSelected: (action) => switch (action) {
               'blocked' => _push(context, BlockedUsersScreen(uid: user.uid)),
               'delete' => _deleteAccount(context),
-              _ => AuthService.instance.signOut(),
+              _ => PushService.instance.stop().then((_) => AuthService.instance.signOut()),
             },
             itemBuilder: (_) => [
               PopupMenuItem(value: 'blocked', child: Text(l10n.blockedUsers)),

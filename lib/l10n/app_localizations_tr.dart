@@ -595,4 +595,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get noMessagesYet => 'Henüz mesaj yok. Bir merhaba de!';
+
+  @override
+  String get open => 'Aç';
 }

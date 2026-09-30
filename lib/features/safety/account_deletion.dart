@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../auth/auth_service.dart';
 import '../chat/chat_repository.dart';
 import '../games/game_repository.dart';
+import '../notifications/push_service.dart';
 import '../profile/nickname.dart';
 
 /// Deletes everything the user owns, then their sign-in.
@@ -17,6 +18,7 @@ class AccountDeletion {
     // Confirm first, so a cancelled sign-in never leaves a half-deleted account.
     if (!await AuthService.instance.reauthenticate()) return false;
 
+    await PushService.instance.stop();
     final db = FirebaseFirestore.instance;
 
     // Games, with their applications, invitations and contact notes.
@@ -31,7 +33,15 @@ class AccountDeletion {
     final invitesToMe = await db.collection('invites').where('playerUid', isEqualTo: uid).get();
     final invitesFromMe = await db.collection('invites').where('dmUid', isEqualTo: uid).get();
     final blocked = await db.collection('users').doc(uid).collection('blocked').get();
-    for (final d in [...seekers.docs, ...myApps.docs, ...invitesToMe.docs, ...invitesFromMe.docs, ...blocked.docs]) {
+    final tokens = await db.collection('users').doc(uid).collection('tokens').get();
+    for (final d in [
+      ...seekers.docs,
+      ...myApps.docs,
+      ...invitesToMe.docs,
+      ...invitesFromMe.docs,
+      ...blocked.docs,
+      ...tokens.docs,
+    ]) {
       batch.delete(d.reference);
     }
     await batch.commit();

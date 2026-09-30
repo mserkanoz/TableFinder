@@ -238,5 +238,6 @@
   "chatClosed": "This user deleted their account. You can read the history but can't send messages.",
   "chatBlocked": "You blocked this user. Unblock them to send messages.",
   "youPrefix": "You: ",
-  "noMessagesYet": "No messages yet. Say hello!"
+  "noMessagesYet": "No messages yet. Say hello!",
+  "open": "Open"
 }

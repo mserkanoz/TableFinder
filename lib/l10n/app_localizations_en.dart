@@ -604,4 +604,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noMessagesYet => 'No messages yet. Say hello!';
+
+  @override
+  String get open => 'Open';
 }

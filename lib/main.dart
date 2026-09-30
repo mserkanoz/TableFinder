@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'features/auth/auth_service.dart';
 import 'features/auth/sign_in_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/notifications/push_service.dart';
 import 'features/profile/profile_edit_screen.dart';
 import 'features/profile/profile_repository.dart';
 import 'features/profile/user_profile.dart';
@@ -25,6 +26,8 @@ class TableFinderApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: scaffoldMessengerKey,
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorSchemeSeed: const Color(0xFF8E2A2A)),
@@ -75,7 +78,11 @@ class _ProfileGate extends StatelessWidget {
         // A missing doc from the local cache may just mean "not synced yet".
         if (doc == null || (!doc.exists && doc.metadata.isFromCache)) return _loading;
         if (!doc.exists) return ProfileEditScreen(user: user);
-        return HomeScreen(user: user, profile: UserProfile.fromMap(doc.data()!));
+        final profile = UserProfile.fromMap(doc.data()!);
+        final lang = Localizations.localeOf(context).languageCode;
+        // After the frame: starting may navigate (a notification opened the app).
+        WidgetsBinding.instance.addPostFrameCallback((_) => PushService.instance.start(user.uid, profile, lang));
+        return HomeScreen(user: user, profile: profile);
       },
     );
   }

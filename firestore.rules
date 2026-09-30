@@ -68,6 +68,17 @@ service cloud.firestore {
         && (!validNickname(resource.data.nickname)
             || !existsAfter(nicknamePath(nickKey(resource.data.nickname))));
 
+      // Push notification tokens of this user's devices. Private to the owner;
+      // Cloud Functions read them with admin access.
+      match /tokens/{token} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.keys().hasOnly(['lang', 'platform', 'updatedAt'])
+          && request.resource.data.lang in ['tr', 'en']
+          && request.resource.data.platform == 'android'
+          && request.resource.data.updatedAt == request.time;
+      }
+
       // Users this user blocked. Private to the owner.
       match /blocked/{otherUid} {
         allow read, delete: if isOwner(uid);
