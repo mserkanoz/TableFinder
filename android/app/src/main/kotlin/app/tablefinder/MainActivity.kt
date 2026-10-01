@@ -1,4 +1,4 @@
-package com.tablefinder.app
+package app.tablefinder
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

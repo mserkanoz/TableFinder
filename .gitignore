@@ -49,3 +49,6 @@ app.*.map.json
 
 # Firebase config (re-downloadable from Firebase Console)
 /android/app/google-services.json
+
+# Release bundles copied for Play Console uploads
+/release/
