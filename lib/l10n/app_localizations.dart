@@ -523,8 +523,8 @@ abstract class AppLocalizations {
   /// No description provided for @priceLabel.
   ///
   /// In en, this message translates to:
-  /// **'Price per player per session (₺)'**
-  String get priceLabel;
+  /// **'Price per player per session ({currency})'**
+  String priceLabel(String currency);
 
   /// No description provided for @priceError.
   ///
@@ -541,8 +541,8 @@ abstract class AppLocalizations {
   /// No description provided for @pricePerSession.
   ///
   /// In en, this message translates to:
-  /// **'₺{price} / session'**
-  String pricePerSession(int price);
+  /// **'{price} / session'**
+  String pricePerSession(String price);
 
   /// No description provided for @descriptionLabel.
   ///
@@ -1221,6 +1221,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open'**
   String get open;
+
+  /// No description provided for @countryFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get countryFieldLabel;
+
+  /// No description provided for @countryTurkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkey'**
+  String get countryTurkey;
+
+  /// No description provided for @countryBulgaria.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulgaria'**
+  String get countryBulgaria;
 }
 
 class _AppLocalizationsDelegate

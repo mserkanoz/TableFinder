@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../data/locations.dart';
 import '../../data/option_labels.dart';
-import '../../data/turkey_locations.dart';
 import '../../l10n/app_localizations.dart';
 import 'game_listing.dart';
 
 /// "Kadıköy, İstanbul" for in-person games, otherwise the platform name.
 String gameWhere(AppLocalizations l10n, GameListing g) {
-  final province = provinceByCode(g.cityCode);
-  if (g.platform == 'in_person' && province != null) {
-    return [g.district, province.name].whereType<String>().join(', ');
+  if (g.platform == 'in_person' && g.cityCode != null) {
+    return placeLabel(l10n, l10n.localeName, g.country, g.cityCode, g.district);
   }
   return platformLabel(l10n, g.platform);
 }
+
+/// "₺150 / session", "€10 (≈19,56 лв) / session" or "Free".
+String gamePrice(AppLocalizations l10n, GameListing g) => g.paid && g.price != null
+    ? l10n.pricePerSession(formatPrice(g.price!, g.currency, l10n.localeName))
+    : l10n.free;
 
 String formatSessionTime(BuildContext context, DateTime t) {
   final locale = Localizations.localeOf(context).toString();
@@ -42,7 +46,7 @@ class GameCard extends StatelessWidget {
           : l10n.gameTypeOneShot,
       gameLanguageLabel(l10n, g.language),
       if (g.beginnerFriendly) l10n.beginnerFriendlyLabel,
-      g.paid && g.price != null ? l10n.pricePerSession(g.price!) : l10n.free,
+      gamePrice(l10n, g),
     ];
 
     return Card(

@@ -154,7 +154,7 @@ class _GameFacts extends StatelessWidget {
         _row(Icons.event_seat_outlined, l10n.seatsOpenLabel, l10n.seatsSummary(g.seatsOpen, g.seatsTotal)),
         _row(Icons.translate, l10n.gameLanguageLabel, gameLanguageLabel(l10n, g.language)),
         _row(Icons.payments_outlined, l10n.paidLabel,
-            g.paid && g.price != null ? l10n.pricePerSession(g.price!) : l10n.free),
+            gamePrice(l10n, g)),
         if (g.beginnerFriendly) _row(Icons.school_outlined, l10n.beginnerFriendlyLabel, '✓'),
         if (g.description.isNotEmpty) ...[
           const SizedBox(height: 16),

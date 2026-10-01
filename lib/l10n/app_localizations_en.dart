@@ -228,7 +228,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paidLabel => 'Paid game';
 
   @override
-  String get priceLabel => 'Price per player per session (₺)';
+  String priceLabel(String currency) {
+    return 'Price per player per session ($currency)';
+  }
 
   @override
   String get priceError => 'Enter a valid amount.';
@@ -237,8 +239,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get free => 'Free';
 
   @override
-  String pricePerSession(int price) {
-    return '₺$price / session';
+  String pricePerSession(String price) {
+    return '$price / session';
   }
 
   @override
@@ -610,4 +612,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get open => 'Open';
+
+  @override
+  String get countryFieldLabel => 'Country';
+
+  @override
+  String get countryTurkey => 'Turkey';
+
+  @override
+  String get countryBulgaria => 'Bulgaria';
 }

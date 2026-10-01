@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/game_options.dart';
+import '../../data/locations.dart';
 import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/form_section.dart';
@@ -32,6 +33,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   late final Set<String> _roles;
   late final Set<String> _systems;
   late final Set<String> _platforms;
+  late String _country;
   int? _cityCode;
   String? _district;
   bool _showErrors = false;
@@ -49,6 +51,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     _roles = {...?p?.roles};
     _systems = {...?p?.systems};
     _platforms = {...?p?.platforms};
+    final deviceLang = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    _country = p?.country ?? countryForLanguage(deviceLang);
     _cityCode = p?.cityCode;
     _district = p?.district;
   }
@@ -75,6 +79,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       roles: _roles,
       systems: _systems,
       platforms: _platforms,
+      country: _country,
       cityCode: _cityCode,
       district: _cityCode == null ? null : _district,
       bio: _bio.text.trim(),
@@ -155,9 +160,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               helper: _locationRequired ? l10n.locationHelperRequired : l10n.locationHelperOptional,
               error: _showErrors && !_locationValid ? l10n.locationRequired : null,
               child: LocationPicker(
+                country: _country,
                 cityCode: _cityCode,
                 district: _district,
-                onChanged: (city, district) => setState(() {
+                onChanged: (country, city, district) => setState(() {
+                  _country = country;
                   _cityCode = city;
                   _district = district;
                 }),

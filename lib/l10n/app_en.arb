@@ -88,13 +88,18 @@
   "langBulgarian": "Bulgarian",
   "beginnerFriendlyLabel": "Beginners welcome",
   "paidLabel": "Paid game",
-  "priceLabel": "Price per player per session (₺)",
+  "priceLabel": "Price per player per session ({currency})",
   "priceError": "Enter a valid amount.",
   "free": "Free",
-  "pricePerSession": "₺{price} / session",
+  "pricePerSession": "{price} / session",
   "@pricePerSession": {
     "placeholders": {
-      "price": {"type": "int"}
+      "price": {"type": "String"}
+    }
+  },
+  "@priceLabel": {
+    "placeholders": {
+      "currency": {"type": "String"}
     }
   },
   "descriptionLabel": "Description",
@@ -240,5 +245,8 @@
   "chatBlocked": "You blocked this user. Unblock them to send messages.",
   "youPrefix": "You: ",
   "noMessagesYet": "No messages yet. Say hello!",
-  "open": "Open"
+  "open": "Open",
+  "countryFieldLabel": "Country",
+  "countryTurkey": "Turkey",
+  "countryBulgaria": "Bulgaria"
 }

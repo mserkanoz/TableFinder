@@ -1,23 +1,16 @@
 /// Turkish provinces (by licence plate code) and their districts.
 /// Profiles store [Province.code] and the district name.
 class Province {
-  const Province(this.code, this.name, this.districts);
+  const Province(this.code, this.name, this.districts, {this.localName, this.localDistricts});
 
   final int code;
   final String name;
   final List<String> districts;
+
+  /// Name in the country's own script (e.g. Cyrillic), if different.
+  final String? localName;
+  final Map<String, String>? localDistricts;
 }
-
-final List<Province> provincesSorted = [...provinces]
-  ..sort((a, b) => compareTurkish(a.name, b.name));
-
-Province? provinceByCode(int? code) {
-  if (code == null || code < 1 || code > provinces.length) return null;
-  return provinces[code - 1];
-}
-
-List<String> sortedDistricts(Province province) =>
-    [...province.districts]..sort(compareTurkish);
 
 const _trAlphabet = 'abcçdefgğhıijklmnoöprsştuüvyz';
 

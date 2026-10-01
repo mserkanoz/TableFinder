@@ -1,14 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../data/game_options.dart';
+import '../../data/locations.dart';
 import 'seeker_post.dart';
 
 /// DM-side search filters; null means "any".
 class SeekerFilters {
-  const SeekerFilters({this.system, this.platform, this.cityCode, this.district, this.language, this.experience});
+  const SeekerFilters({
+    this.system,
+    this.platform,
+    this.country = defaultCountry,
+    this.cityCode,
+    this.district,
+    this.language,
+    this.experience,
+  });
 
   final String? system;
   final String? platform;
+  final String country; // only applies together with cityCode
   final int? cityCode;
   final String? district;
   final String? language;
@@ -61,7 +71,9 @@ class SeekerRepository {
     final posts = snap.docs.map(SeekerPost.fromDoc).where((p) {
       return (f.system == null || p.systems.contains(f.system)) &&
           (f.platform == null || p.platforms.contains(f.platform)) &&
-          (f.language == null || p.languages.contains(f.language));
+          (f.language == null || p.languages.contains(f.language)) &&
+          // See GameRepository.search: country is matched locally.
+          (f.cityCode == null || p.country == f.country);
     }).toList();
     return SeekerPage(posts, snap.docs.isEmpty ? after : snap.docs.last, snap.docs.length == pageSize);
   }

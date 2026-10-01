@@ -72,10 +72,10 @@
   "langBulgarian": "Bulgarca",
   "beginnerFriendlyLabel": "Yeni başlayanlara uygun",
   "paidLabel": "Ücretli oyun",
-  "priceLabel": "Oyuncu başı oturum ücreti (₺)",
+  "priceLabel": "Oyuncu başı oturum ücreti ({currency})",
   "priceError": "Geçerli bir tutar gir.",
   "free": "Ücretsiz",
-  "pricePerSession": "Oturum başı ₺{price}",
+  "pricePerSession": "Oturum başı {price}",
   "descriptionLabel": "Açıklama",
   "descriptionHint": "Evren, oyunun havası, ev kuralları, oyunculardan beklentilerin…",
   "contactNoteLabel": "İletişim notu (gizli)",
@@ -188,5 +188,8 @@
   "chatBlocked": "Bu kullanıcıyı engelledin. Mesaj göndermek için engeli kaldır.",
   "youPrefix": "Sen: ",
   "noMessagesYet": "Henüz mesaj yok. Bir merhaba de!",
-  "open": "Aç"
+  "open": "Aç",
+  "countryFieldLabel": "Ülke",
+  "countryTurkey": "Türkiye",
+  "countryBulgaria": "Bulgaristan"
 }

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/option_labels.dart';
-import '../../data/turkey_locations.dart';
+import '../../data/locations.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/page_padding.dart';
 import '../safety/safety_menu.dart';
@@ -19,7 +19,6 @@ class ProfileSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final province = provinceByCode(profile.cityCode);
 
     return Card(
       child: Padding(
@@ -31,8 +30,9 @@ class ProfileSummaryCard extends StatelessWidget {
             _InfoRow(Icons.menu_book_outlined, profile.systems.map((id) => systemLabel(l10n, id)).join(', ')),
             _InfoRow(Icons.table_restaurant_outlined,
                 profile.platforms.map((id) => platformLabel(l10n, id)).join(', ')),
-            if (province != null)
-              _InfoRow(Icons.place_outlined, [profile.district, province.name].whereType<String>().join(', ')),
+            if (profile.cityCode != null)
+              _InfoRow(Icons.place_outlined,
+                  placeLabel(l10n, l10n.localeName, profile.country, profile.cityCode, profile.district)),
             if (showBio && profile.bio.isNotEmpty) _InfoRow(Icons.notes_outlined, profile.bio),
           ],
         ),

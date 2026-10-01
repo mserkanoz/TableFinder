@@ -31,9 +31,19 @@ service cloud.firestore {
       return /databases/$(database)/documents/users/$(uid);
     }
 
+    // Countries; documents written before multi-country support have no field.
+    function validCountry(d) {
+      return d.get('country', 'TR') in ['TR', 'BG'];
+    }
+
+    function validCityCode(d) {
+      return d.cityCode is int && d.cityCode >= 1
+        && d.cityCode <= (d.get('country', 'TR') == 'BG' ? 28 : 81);
+    }
+
     function validProfile() {
       let d = request.resource.data;
-      return d.keys().hasOnly(['nickname', 'roles', 'systems', 'platforms', 'cityCode',
+      return d.keys().hasOnly(['nickname', 'roles', 'systems', 'platforms', 'country', 'cityCode',
                                'district', 'bio', 'ageConfirmed', 'createdAt', 'updatedAt'])
         && validNickname(d.nickname)
         // The nickname must be reserved by this user (in the same write).
@@ -42,7 +52,8 @@ service cloud.firestore {
         && d.systems is list && d.systems.size() >= 1 && d.systems.size() <= 40
         && d.platforms is list && d.platforms.size() >= 1
         && d.platforms.hasOnly(['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other'])
-        && (d.cityCode == null || (d.cityCode is int && d.cityCode >= 1 && d.cityCode <= 81))
+        && validCountry(d)
+        && (d.cityCode == null || validCityCode(d))
         && (d.district == null || (d.district is string && d.district.size() <= 40))
         && d.bio is string && d.bio.size() <= 500
         && d.ageConfirmed == true
@@ -117,7 +128,7 @@ service cloud.firestore {
       let d = request.resource.data;
       let owner = get(userPath(request.auth.uid)).data;
       return d.keys().hasOnly(['ownerUid', 'ownerNickname', 'title', 'system', 'platform',
-                               'cityCode', 'district', 'gameType', 'campaignStage', 'frequency',
+                               'country', 'cityCode', 'district', 'gameType', 'campaignStage', 'frequency',
                                'sessionAt', 'seatsTotal', 'seatsOpen', 'language',
                                'beginnerFriendly', 'paid', 'price', 'currency', 'description',
                                'status', 'createdAt', 'updatedAt'])
@@ -130,7 +141,7 @@ service cloud.firestore {
         && d.system is string && d.system.size() >= 1 && d.system.size() <= 30
         && d.platform in ['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other']
         && (d.platform != 'in_person'
-            || (d.cityCode is int && d.cityCode >= 1 && d.cityCode <= 81
+            || (validCityCode(d)
                 && d.district is string && d.district.size() >= 1 && d.district.size() <= 40))
         && (d.platform == 'in_person' || (d.cityCode == null && d.district == null))
         && d.gameType in ['one_shot', 'campaign']
@@ -145,7 +156,8 @@ service cloud.firestore {
         && d.beginnerFriendly is bool
         && d.paid is bool
         && (d.paid ? (d.price is int && d.price >= 1 && d.price <= 100000) : d.price == null)
-        && d.currency == 'TRY'
+        && validCountry(d)
+        && d.currency == (d.get('country', 'TR') == 'BG' ? 'EUR' : 'TRY')
         && d.description is string && d.description.size() <= 2000
         && d.status in ['open', 'full', 'closed']
         && d.updatedAt == request.time;
@@ -234,7 +246,7 @@ service cloud.firestore {
     function validSeeker(postId) {
       let d = request.resource.data;
       let me = get(userPath(request.auth.uid)).data;
-      return d.keys().hasOnly(['ownerUid', 'ownerNickname', 'systems', 'platforms', 'cityCode',
+      return d.keys().hasOnly(['ownerUid', 'ownerNickname', 'systems', 'platforms', 'country', 'cityCode',
                                'district', 'gameTypes', 'languages', 'experience', 'availability',
                                'openToPaid', 'description', 'status', 'createdAt', 'updatedAt'])
         && d.ownerUid == request.auth.uid
@@ -246,11 +258,12 @@ service cloud.firestore {
         && d.platforms is list && d.platforms.size() >= 1
         && d.platforms.hasOnly(['in_person', 'discord', 'roll20', 'foundry', 'zoom', 'other'])
         && ('in_person' in d.platforms
-            ? (d.cityCode is int && d.cityCode >= 1 && d.cityCode <= 81
+            ? (validCityCode(d)
                && d.district is string && d.district.size() >= 1 && d.district.size() <= 40)
             : (d.cityCode == null && d.district == null))
         && d.gameTypes is list && d.gameTypes.size() >= 1 && d.gameTypes.hasOnly(['one_shot', 'campaign'])
         && d.languages is list && d.languages.size() >= 1 && d.languages.hasOnly(['tr', 'en', 'bg'])
+        && validCountry(d)
         && d.experience in ['new', 'some', 'veteran']
         && d.availability is string && d.availability.size() <= 100
         && d.openToPaid is bool

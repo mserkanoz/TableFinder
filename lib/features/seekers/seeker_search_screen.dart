@@ -27,6 +27,7 @@ class SeekerSearchScreen extends StatefulWidget {
 class _SeekerSearchScreenState extends State<SeekerSearchScreen> {
   String? _system;
   String? _platform;
+  late String _country = widget.profile.country;
   int? _cityCode;
   String? _district;
   String? _language;
@@ -43,6 +44,7 @@ class _SeekerSearchScreenState extends State<SeekerSearchScreen> {
   SeekerFilters get _filters => SeekerFilters(
         system: _system,
         platform: _platform,
+        country: _country,
         cityCode: _platform == 'in_person' ? _cityCode : null,
         district: _platform == 'in_person' ? _district : null,
         language: _language,
@@ -150,10 +152,12 @@ class _SeekerSearchScreenState extends State<SeekerSearchScreen> {
         if (_platform == 'in_person') ...[
           const SizedBox(height: 12),
           LocationPicker(
+            country: _country,
             cityCode: _cityCode,
             district: _district,
             anyLabel: l10n.filterAll,
-            onChanged: (city, district) => setState(() {
+            onChanged: (country, city, district) => setState(() {
+              _country = country;
               _cityCode = city;
               _district = district;
             }),

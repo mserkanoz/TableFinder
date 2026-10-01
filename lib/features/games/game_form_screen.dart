@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/game_options.dart';
+import '../../data/locations.dart';
 import '../../data/option_labels.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/form_section.dart';
@@ -33,6 +34,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
   late final TextEditingController _price;
   String? _system;
   String? _platform;
+  late String _country;
   int? _cityCode;
   String? _district;
   late String _gameType;
@@ -60,6 +62,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
     // New listings start from the DM's profile where it makes sense.
     _system = g?.system ?? (p.systems.length == 1 ? p.systems.first : null);
     _platform = g?.platform ?? (p.platforms.length == 1 ? p.platforms.first : null);
+    _country = g?.country ?? p.country;
     _cityCode = g?.cityCode ?? p.cityCode;
     _district = g?.district ?? p.district;
     _gameType = g?.gameType ?? 'campaign';
@@ -134,6 +137,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
       title: _title.text.trim(),
       system: _system!,
       platform: _platform!,
+      country: _country,
       cityCode: _inPerson ? _cityCode : null,
       district: _inPerson ? _district : null,
       gameType: _gameType,
@@ -242,9 +246,11 @@ class _GameFormScreenState extends State<GameFormScreen> {
                 helper: l10n.gameLocationHelper,
                 error: _showErrors && (_cityCode == null || _district == null) ? l10n.locationRequired : null,
                 child: LocationPicker(
+                  country: _country,
                   cityCode: _cityCode,
                   district: _district,
-                  onChanged: (city, district) => setState(() {
+                  onChanged: (country, city, district) => setState(() {
+                    _country = country;
                     _cityCode = city;
                     _district = district;
                   }),
@@ -334,7 +340,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
                 controller: _price,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: l10n.priceLabel,
+                  labelText: l10n.priceLabel(currencySymbol(currencyFor(_country))),
                   border: const OutlineInputBorder(),
                 ),
                 validator: (v) {

@@ -41,6 +41,7 @@ class _SeekerFormScreenState extends State<SeekerFormScreen> {
   late final Set<String> _platforms;
   late final Set<String> _gameTypes;
   late final Set<String> _languages;
+  late String _country;
   int? _cityCode;
   String? _district;
   String? _experience;
@@ -62,6 +63,7 @@ class _SeekerFormScreenState extends State<SeekerFormScreen> {
     _gameTypes = {...(s?.gameTypes ?? gameTypeIds)};
     final deviceLang = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
     _languages = {...(s?.languages ?? {languageIdFor(deviceLang)})};
+    _country = s?.country ?? p.country;
     _cityCode = s?.cityCode ?? p.cityCode;
     _district = s?.district ?? p.district;
     _experience = s?.experience;
@@ -97,6 +99,7 @@ class _SeekerFormScreenState extends State<SeekerFormScreen> {
       ownerNickname: widget.profile.nickname,
       systems: _systems,
       platforms: _platforms,
+      country: _country,
       cityCode: _inPerson ? _cityCode : null,
       district: _inPerson ? _district : null,
       gameTypes: _gameTypes,
@@ -175,9 +178,11 @@ class _SeekerFormScreenState extends State<SeekerFormScreen> {
                 helper: l10n.locationHelperRequired,
                 error: _showErrors && (_cityCode == null || _district == null) ? l10n.locationRequired : null,
                 child: LocationPicker(
+                  country: _country,
                   cityCode: _cityCode,
                   district: _district,
-                  onChanged: (city, district) => setState(() {
+                  onChanged: (country, city, district) => setState(() {
+                    _country = country;
                     _cityCode = city;
                     _district = district;
                   }),

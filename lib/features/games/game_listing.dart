@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../data/locations.dart';
+
 /// A DM's game listing, stored at `games/{id}`. Everything here is public to
 /// signed-in users; the contact note lives in `games/{id}/private/contact`.
 class GameListing {
@@ -10,6 +12,7 @@ class GameListing {
     required this.title,
     required this.system,
     required this.platform,
+    this.country = defaultCountry,
     this.cityCode,
     this.district,
     required this.gameType,
@@ -33,6 +36,7 @@ class GameListing {
   final String title;
   final String system;
   final String platform;
+  final String country; // TR | BG
   final int? cityCode;
   final String? district;
   final String gameType; // one_shot | campaign
@@ -44,10 +48,12 @@ class GameListing {
   final String language;
   final bool beginnerFriendly;
   final bool paid;
-  final int? price; // TRY per player per session, when paid
+  final int? price; // per player per session in [currency], when paid
   final String description;
   final String status; // open | full | closed
   final DateTime? createdAt;
+
+  String get currency => currencyFor(country);
 
   bool get isOngoing => gameType == 'campaign' && campaignStage == 'ongoing';
 
@@ -64,6 +70,7 @@ class GameListing {
       title: m['title'] as String? ?? '',
       system: m['system'] as String? ?? 'other',
       platform: m['platform'] as String? ?? 'other',
+      country: countryOrDefault(m['country']),
       cityCode: m['cityCode'] as int?,
       district: m['district'] as String?,
       gameType: m['gameType'] as String? ?? 'one_shot',
@@ -89,6 +96,7 @@ class GameListing {
         'title': title,
         'system': system,
         'platform': platform,
+        'country': country,
         'cityCode': cityCode,
         'district': district,
         'gameType': gameType,
@@ -101,7 +109,7 @@ class GameListing {
         'beginnerFriendly': beginnerFriendly,
         'paid': paid,
         'price': price,
-        'currency': 'TRY',
+        'currency': currency,
         'description': description,
         'status': status,
       };

@@ -1,3 +1,5 @@
+import '../../data/locations.dart';
+
 /// A user's public profile, stored at `users/{uid}` in Firestore.
 class UserProfile {
   const UserProfile({
@@ -5,6 +7,7 @@ class UserProfile {
     required this.roles,
     required this.systems,
     required this.platforms,
+    this.country = defaultCountry,
     this.cityCode,
     this.district,
     this.bio = '',
@@ -14,6 +17,7 @@ class UserProfile {
   final Set<String> roles;
   final Set<String> systems;
   final Set<String> platforms;
+  final String country; // TR | BG
   final int? cityCode;
   final String? district;
   final String bio;
@@ -23,6 +27,7 @@ class UserProfile {
         roles: _stringSet(map['roles']),
         systems: _stringSet(map['systems']),
         platforms: _stringSet(map['platforms']),
+        country: countryOrDefault(map['country']),
         cityCode: map['cityCode'] as int?,
         district: map['district'] as String?,
         bio: map['bio'] as String? ?? '',
@@ -33,6 +38,7 @@ class UserProfile {
         'roles': roles.toList(),
         'systems': systems.toList(),
         'platforms': platforms.toList(),
+        'country': country,
         'cityCode': cityCode,
         'district': district,
         'bio': bio,

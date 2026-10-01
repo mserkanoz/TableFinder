@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../data/locations.dart';
 import '../invites/invite_repository.dart';
 import 'game_listing.dart';
 
@@ -8,6 +9,7 @@ class GameFilters {
   const GameFilters({
     this.system,
     this.platform,
+    this.country = defaultCountry,
     this.cityCode,
     this.district,
     this.gameType,
@@ -18,6 +20,7 @@ class GameFilters {
 
   final String? system;
   final String? platform;
+  final String country; // only applies together with cityCode
   final int? cityCode;
   final String? district;
   final String? gameType;
@@ -72,7 +75,12 @@ class GameRepository {
     if (after != null) q = q.startAfterDocument(after);
 
     final snap = await q.get();
-    final games = snap.docs.map(GameListing.fromDoc).where((g) => !g.isExpired).toList();
+    // Province codes overlap between countries, and older listings have no
+    // country field, so the country is matched here rather than in the query.
+    final games = snap.docs
+        .map(GameListing.fromDoc)
+        .where((g) => !g.isExpired && (f.cityCode == null || g.country == f.country))
+        .toList();
     return GamePage(games, snap.docs.isEmpty ? after : snap.docs.last, snap.docs.length == pageSize);
   }
 

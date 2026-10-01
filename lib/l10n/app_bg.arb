@@ -70,10 +70,10 @@
   "langBulgarian": "Български",
   "beginnerFriendlyLabel": "Подходяща за начинаещи",
   "paidLabel": "Платена игра",
-  "priceLabel": "Цена на играч за сесия (₺)",
+  "priceLabel": "Цена на играч за сесия ({currency})",
   "priceError": "Въведи валидна сума.",
   "free": "Безплатна",
-  "pricePerSession": "₺{price} / сесия",
+  "pricePerSession": "{price} / сесия",
   "descriptionLabel": "Описание",
   "descriptionHint": "Свят, атмосфера, домашни правила, какво очакваш от играчите…",
   "contactNoteLabel": "Бележка за контакт (лична)",
@@ -186,5 +186,8 @@
   "chatBlocked": "Блокирал/а си този потребител. Отблокирай го/я, за да пишеш.",
   "youPrefix": "Ти: ",
   "noMessagesYet": "Все още няма съобщения. Кажи здравей!",
-  "open": "Отвори"
+  "open": "Отвори",
+  "countryFieldLabel": "Държава",
+  "countryTurkey": "Турция",
+  "countryBulgaria": "България"
 }

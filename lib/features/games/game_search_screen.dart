@@ -26,6 +26,7 @@ class GameSearchScreen extends StatefulWidget {
 class _GameSearchScreenState extends State<GameSearchScreen> {
   String? _system;
   String? _platform;
+  late String _country = widget.profile.country;
   int? _cityCode;
   String? _district;
   String? _gameType;
@@ -44,6 +45,7 @@ class _GameSearchScreenState extends State<GameSearchScreen> {
   GameFilters get _filters => GameFilters(
         system: _system,
         platform: _platform,
+        country: _country,
         cityCode: _platform == 'in_person' ? _cityCode : null,
         district: _platform == 'in_person' ? _district : null,
         gameType: _gameType,
@@ -158,10 +160,12 @@ class _GameSearchScreenState extends State<GameSearchScreen> {
           if (_platform == 'in_person') ...[
             const SizedBox(height: 12),
             LocationPicker(
+              country: _country,
               cityCode: _cityCode,
               district: _district,
               anyLabel: l10n.filterAll,
-              onChanged: (city, district) => setState(() {
+              onChanged: (country, city, district) => setState(() {
+                _country = country;
                 _cityCode = city;
                 _district = district;
               }),
