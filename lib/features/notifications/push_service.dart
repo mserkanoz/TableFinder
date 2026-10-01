@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/game_options.dart';
 import '../../l10n/app_localizations.dart';
 import '../chat/chat_screen.dart';
 import '../games/game_detail_screen.dart';
@@ -55,7 +56,7 @@ class PushService {
   Future<void> _saveToken(String uid, String token, String languageCode) async {
     _token = token;
     await _tokenRef(uid, token).set({
-      'lang': languageCode == 'en' ? 'en' : 'tr',
+      'lang': languageIdFor(languageCode),
       'platform': 'android',
       'updatedAt': FieldValue.serverTimestamp(),
     });

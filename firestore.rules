@@ -74,7 +74,7 @@ service cloud.firestore {
         allow read, delete: if isOwner(uid);
         allow create, update: if isOwner(uid)
           && request.resource.data.keys().hasOnly(['lang', 'platform', 'updatedAt'])
-          && request.resource.data.lang in ['tr', 'en']
+          && request.resource.data.lang in ['tr', 'en', 'bg']
           && request.resource.data.platform == 'android'
           && request.resource.data.updatedAt == request.time;
       }
@@ -141,7 +141,7 @@ service cloud.firestore {
         && (d.sessionAt == null || d.sessionAt is timestamp)
         && d.seatsTotal is int && d.seatsTotal >= 1 && d.seatsTotal <= 12
         && d.seatsOpen is int && d.seatsOpen >= 0 && d.seatsOpen <= d.seatsTotal
-        && d.language in ['tr', 'en']
+        && d.language in ['tr', 'en', 'bg']
         && d.beginnerFriendly is bool
         && d.paid is bool
         && (d.paid ? (d.price is int && d.price >= 1 && d.price <= 100000) : d.price == null)
@@ -250,7 +250,7 @@ service cloud.firestore {
                && d.district is string && d.district.size() >= 1 && d.district.size() <= 40)
             : (d.cityCode == null && d.district == null))
         && d.gameTypes is list && d.gameTypes.size() >= 1 && d.gameTypes.hasOnly(['one_shot', 'campaign'])
-        && d.languages is list && d.languages.size() >= 1 && d.languages.hasOnly(['tr', 'en'])
+        && d.languages is list && d.languages.size() >= 1 && d.languages.hasOnly(['tr', 'en', 'bg'])
         && d.experience in ['new', 'some', 'veteran']
         && d.availability is string && d.availability.size() <= 100
         && d.openToPaid is bool

@@ -52,7 +52,10 @@ const gameSystems = {
 const gameTypeIds = ['one_shot', 'campaign'];
 const campaignStageIds = ['new', 'ongoing'];
 const frequencyIds = ['weekly', 'biweekly', 'monthly', 'irregular'];
-const gameLanguageIds = ['tr', 'en'];
+const gameLanguageIds = ['tr', 'en', 'bg'];
+
+/// App/game language ID for a device language code; Turkish by default.
+String languageIdFor(String languageCode) => gameLanguageIds.contains(languageCode) ? languageCode : 'tr';
 const gameStatusIds = ['open', 'full', 'closed'];
 const maxTableSize = 12;
 

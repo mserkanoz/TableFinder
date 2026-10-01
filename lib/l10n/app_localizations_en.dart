@@ -219,6 +219,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get langEnglish => 'English';
 
   @override
+  String get langBulgarian => 'Bulgarian';
+
+  @override
   String get beginnerFriendlyLabel => 'Beginners welcome';
 
   @override

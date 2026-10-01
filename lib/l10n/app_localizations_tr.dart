@@ -218,6 +218,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get langEnglish => 'İngilizce';
 
   @override
+  String get langBulgarian => 'Bulgarca';
+
+  @override
   String get beginnerFriendlyLabel => 'Yeni başlayanlara uygun';
 
   @override

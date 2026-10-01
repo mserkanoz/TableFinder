@@ -26,8 +26,11 @@ String frequencyLabel(AppLocalizations l10n, String id) => switch (id) {
       _ => l10n.freqIrregular,
     };
 
-String gameLanguageLabel(AppLocalizations l10n, String id) =>
-    id == 'en' ? l10n.langEnglish : l10n.langTurkish;
+String gameLanguageLabel(AppLocalizations l10n, String id) => switch (id) {
+      'en' => l10n.langEnglish,
+      'bg' => l10n.langBulgarian,
+      _ => l10n.langTurkish,
+    };
 
 String gameStatusLabel(AppLocalizations l10n, String id) => switch (id) {
       'full' => l10n.statusFull,

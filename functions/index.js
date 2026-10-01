@@ -19,30 +19,37 @@ const TEXTS = {
   chat: {
     tr: (a) => ({ title: a.from, body: a.text }),
     en: (a) => ({ title: a.from, body: a.text }),
+    bg: (a) => ({ title: a.from, body: a.text }),
   },
   application: {
     tr: (a) => ({ title: 'Yeni başvuru', body: `${a.player}, "${a.game}" masana başvurdu.` }),
     en: (a) => ({ title: 'New application', body: `${a.player} applied to "${a.game}".` }),
+    bg: (a) => ({ title: 'Нова кандидатура', body: `${a.player} кандидатства за "${a.game}".` }),
   },
   accepted: {
     tr: (a) => ({ title: 'Başvurun kabul edildi 🎉', body: `"${a.game}" masasına kabul edildin. DM'in iletişim notu artık açık.` }),
     en: (a) => ({ title: 'Application accepted 🎉', body: `You're in "${a.game}". The DM's contact note is now visible.` }),
+    bg: (a) => ({ title: 'Кандидатурата ти е приета 🎉', body: `Приет/а си в "${a.game}". Бележката за контакт на DM вече е видима.` }),
   },
   rejected: {
     tr: (a) => ({ title: 'Başvurun hakkında', body: `"${a.game}" masasına yaptığın başvuru kabul edilmedi.` }),
     en: (a) => ({ title: 'About your application', body: `Your application to "${a.game}" wasn't accepted.` }),
+    bg: (a) => ({ title: 'За кандидатурата ти', body: `Кандидатурата ти за "${a.game}" не беше приета.` }),
   },
   removed: {
     tr: (a) => ({ title: 'Masadan çıkarıldın', body: `"${a.game}" masasından çıkarıldın.` }),
     en: (a) => ({ title: 'Removed from a table', body: `You were removed from "${a.game}".` }),
+    bg: (a) => ({ title: 'Отстранен/а от маса', body: `Беше отстранен/а от "${a.game}".` }),
   },
   left: {
     tr: (a) => ({ title: 'Bir oyuncu ayrıldı', body: `${a.player}, "${a.game}" masasından ayrıldı. Boş yer otomatik açıldı.` }),
     en: (a) => ({ title: 'A player left', body: `${a.player} left "${a.game}". The seat was reopened.` }),
+    bg: (a) => ({ title: 'Играч напусна', body: `${a.player} напусна "${a.game}". Мястото е освободено отново.` }),
   },
   invite: {
     tr: (a) => ({ title: 'Masaya davet edildin 🎲', body: `${a.dm} seni "${a.game}" masasına davet etti.` }),
     en: (a) => ({ title: 'You were invited 🎲', body: `${a.dm} invited you to "${a.game}".` }),
+    bg: (a) => ({ title: 'Получи покана 🎲', body: `${a.dm} те покани на "${a.game}".` }),
   },
 };
 
@@ -61,10 +68,10 @@ async function notify(uid, kind, args, data) {
   const snap = await tokensRef.get();
   if (snap.empty) return;
 
-  const byLang = { tr: [], en: [] };
-  for (const doc of snap.docs) byLang[doc.get('lang') === 'en' ? 'en' : 'tr'].push(doc.id);
+  const byLang = { tr: [], en: [], bg: [] };
+  for (const doc of snap.docs) (byLang[doc.get('lang')] || byLang.tr).push(doc.id);
 
-  for (const lang of ['tr', 'en']) {
+  for (const lang of Object.keys(byLang)) {
     const tokens = byLang[lang];
     if (tokens.length === 0) continue;
     const { title, body } = TEXTS[kind][lang](args);

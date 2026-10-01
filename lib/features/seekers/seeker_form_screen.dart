@@ -61,7 +61,7 @@ class _SeekerFormScreenState extends State<SeekerFormScreen> {
     _platforms = {...(s?.platforms ?? p.platforms)};
     _gameTypes = {...(s?.gameTypes ?? gameTypeIds)};
     final deviceLang = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-    _languages = {...(s?.languages ?? {deviceLang == 'en' ? 'en' : 'tr'})};
+    _languages = {...(s?.languages ?? {languageIdFor(deviceLang)})};
     _cityCode = s?.cityCode ?? p.cityCode;
     _district = s?.district ?? p.district;
     _experience = s?.experience;

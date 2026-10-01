@@ -69,7 +69,7 @@ class _GameFormScreenState extends State<GameFormScreen> {
     _seatsTotal = g?.seatsTotal ?? 4;
     _seatsOpen = g?.seatsOpen ?? 4;
     final deviceLang = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-    _language = g?.language ?? (deviceLang == 'en' ? 'en' : 'tr');
+    _language = g?.language ?? languageIdFor(deviceLang);
     _beginnerFriendly = g?.beginnerFriendly ?? false;
     _paid = g?.paid ?? false;
     _status = g?.status ?? 'open';
