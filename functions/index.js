@@ -157,6 +157,36 @@ async function freeSeat(gameId) {
   });
 }
 
+// ✏️ Nickname change: listings, LFG posts, applications, invitations and chats
+// keep a copy of the nickname for display; bring them all up to date.
+exports.onProfileUpdated = onDocumentUpdated('users/{uid}', async (event) => {
+  const before = event.data && event.data.before.data();
+  const after = event.data && event.data.after.data();
+  if (!before || !after || before.nickname === after.nickname) return;
+  const uid = event.params.uid;
+  const nickname = after.nickname;
+
+  const [games, seekers, applications, invites, chats] = await Promise.all([
+    db.collection('games').where('ownerUid', '==', uid).get(),
+    db.collection('seekers').where('ownerUid', '==', uid).get(),
+    db.collectionGroup('applications').where('applicantUid', '==', uid).get(),
+    db.collection('invites').where('dmUid', '==', uid).get(),
+    db.collection('chats').where('members', 'array-contains', uid).get(),
+  ]);
+
+  const writer = db.bulkWriter();
+  games.docs.forEach((d) => writer.update(d.ref, { ownerNickname: nickname }));
+  seekers.docs.forEach((d) => writer.update(d.ref, { ownerNickname: nickname }));
+  applications.docs.forEach((d) => writer.update(d.ref, { applicantNickname: nickname }));
+  invites.docs.forEach((d) => writer.update(d.ref, { dmNickname: nickname }));
+  chats.docs.forEach((d) => writer.update(d.ref, { [`nicknames.${uid}`]: nickname }));
+  await writer.close();
+  logger.info('Nickname propagated', {
+    uid, games: games.size, seekers: seekers.size, applications: applications.size,
+    invites: invites.size, chats: chats.size,
+  });
+});
+
 // 🎲 Invitation -> the player.
 exports.onInviteCreated = onDocumentCreated('invites/{inviteId}', async (event) => {
   const i = event.data && event.data.data();
