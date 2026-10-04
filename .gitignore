@@ -53,3 +53,9 @@ app.*.map.json
 # Release bundles copied for Play Console uploads
 /release/
 /android/app/google-services*.json*
+
+# Kotlin compiler session files
+/android/.kotlin/
+# Store screenshots (raw captures and framed images) stay local
+/store/screenshots/
+
