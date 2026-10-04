@@ -13,10 +13,10 @@ Uzun süredir üzerinde çalıştığım uygulama **TableFinder** artık test a�
 Google, uygulamanın Play Store'da yayınlanabilmesi için en az 12 kişinin 14 gün boyunca test etmesini istiyor. Bana yardım edersen çok sevinirim! 🙏
 
 **Nasıl katılırsın?**
-1. Telefonundan şu bağlantıyı aç: [KATILIM BAĞLANTISI]
+1. Telefonundan şu bağlantıyı aç: https://play.google.com/apps/testing/app.tablefinder
    (Bana verdiğin Gmail hesabıyla açman gerekiyor.)
 2. **"Test kullanıcısı ol"** butonuna dokun.
-3. Açılan sayfadan TableFinder'ı Play Store'dan indir.
+3. Açılan sayfadan (ikinci satırda "download it on Google Play" yazan linke tıklayarak) TableFinder'ı Play Store'dan indir.
 4. Google ile giriş yap ve kısa bir profil oluştur.
 
 **Tek ricam:** Uygulamayı **en az 14 gün silme** ve arada bir aç. FRP oynamıyorsan bile kurcalaman yeterli 😊
@@ -36,7 +36,7 @@ The app I've been working on for a long time, **TableFinder**, is now in testing
 Google requires at least 12 people to test an app for 14 days before it can be published on the Play Store. I'd be really grateful for your help! 🙏
 
 **How to join**
-1. Open this link on your phone: [OPT-IN LINK]
+1. Open this link on your phone: https://play.google.com/apps/testing/app.tablefinder
    (Use the Gmail account you gave me.)
 2. Tap **"Become a tester"**.
 3. Install TableFinder from the Play Store page that opens.
@@ -59,7 +59,7 @@ Thank you! 🧙‍♂️
 Google изисква поне 12 души да тестват приложението в продължение на 14 дни, преди то да може да бъде публикувано в Play Store. Ще бъда много благодарен за помощта ти! 🙏
 
 **Как да се включиш**
-1. Отвори този линк от телефона си: [ЛИНК ЗА ВКЛЮЧВАНЕ]
+1. Отвори този линк от телефона си: https://play.google.com/apps/testing/app.tablefinder
    (Използвай Gmail акаунта, който ми даде.)
 2. Докосни **„Станете тестер“**.
 3. Инсталирай TableFinder от страницата в Play Store, която ще се отвори.
