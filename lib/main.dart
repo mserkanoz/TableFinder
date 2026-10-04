@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'features/auth/auth_service.dart';
@@ -17,6 +19,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // On Android, options come from android/app/google-services.json.
   await Firebase.initializeApp();
+  // App Check: release builds prove they are the Play-installed app via Play
+  // Integrity. Debug builds log a debug token on first run, which has to be
+  // added in Firebase Console > App Check > Manage debug tokens.
+  await FirebaseAppCheck.instance.activate(
+    providerAndroid: kReleaseMode ? const AndroidPlayIntegrityProvider() : const AndroidDebugProvider(),
+  );
   runApp(const TableFinderApp());
 }
 
