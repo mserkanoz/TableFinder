@@ -612,4 +612,18 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get countryBulgaria => 'Bulgaristan';
+
+  @override
+  String get systemUndecided => 'Henüz bilmiyorum / yeniyim';
+
+  @override
+  String allSystems(int count) {
+    return 'Tüm sistemler ($count)…';
+  }
+
+  @override
+  String get searchSystemsHint => 'Sistem ara…';
+
+  @override
+  String get done => 'Tamam';
 }

@@ -189,5 +189,9 @@
   "open": "Отвори",
   "countryFieldLabel": "Държава",
   "countryTurkey": "Турция",
-  "countryBulgaria": "България"
+  "countryBulgaria": "България",
+  "systemUndecided": "Все още не знам / начинаещ",
+  "allSystems": "Всички системи ({count})…",
+  "searchSystemsHint": "Търси система…",
+  "done": "Готово"
 }

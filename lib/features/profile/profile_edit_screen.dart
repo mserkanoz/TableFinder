@@ -8,6 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/form_section.dart';
 import '../../widgets/location_picker.dart';
 import '../../widgets/page_padding.dart';
+import '../../widgets/systems_picker.dart';
 import '../auth/auth_service.dart';
 import 'nickname.dart';
 import 'profile_repository.dart';
@@ -148,7 +149,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             FormSection(
               title: l10n.systemsLabel,
               error: _showErrors && _systems.isEmpty ? l10n.selectAtLeastOne : null,
-              child: _chips(gameSystems.keys, _systems, (id) => systemLabel(l10n, id)),
+              child: SystemsPicker(
+                selected: _systems,
+                onChanged: (s) => setState(() => _systems
+                  ..clear()
+                  ..addAll(s)),
+              ),
             ),
             FormSection(
               title: l10n.platformsLabel,

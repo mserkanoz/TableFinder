@@ -1239,6 +1239,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bulgaria'**
   String get countryBulgaria;
+
+  /// No description provided for @systemUndecided.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sure yet / new to RPGs'**
+  String get systemUndecided;
+
+  /// No description provided for @allSystems.
+  ///
+  /// In en, this message translates to:
+  /// **'All systems ({count})…'**
+  String allSystems(int count);
+
+  /// No description provided for @searchSystemsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search systems…'**
+  String get searchSystemsHint;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
 }
 
 class _AppLocalizationsDelegate

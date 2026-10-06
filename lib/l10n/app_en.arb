@@ -248,5 +248,10 @@
   "open": "Open",
   "countryFieldLabel": "Country",
   "countryTurkey": "Turkey",
-  "countryBulgaria": "Bulgaria"
+  "countryBulgaria": "Bulgaria",
+  "systemUndecided": "Not sure yet / new to RPGs",
+  "allSystems": "All systems ({count})…",
+  "@allSystems": {"placeholders": {"count": {"type": "int"}}},
+  "searchSystemsHint": "Search systems…",
+  "done": "Done"
 }

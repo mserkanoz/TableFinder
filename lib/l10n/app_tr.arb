@@ -191,5 +191,9 @@
   "open": "Aç",
   "countryFieldLabel": "Ülke",
   "countryTurkey": "Türkiye",
-  "countryBulgaria": "Bulgaristan"
+  "countryBulgaria": "Bulgaristan",
+  "systemUndecided": "Henüz bilmiyorum / yeniyim",
+  "allSystems": "Tüm sistemler ({count})…",
+  "searchSystemsHint": "Sistem ara…",
+  "done": "Tamam"
 }

@@ -48,6 +48,12 @@ const gameSystems = {
   'other': 'other',
 };
 
+/// For profiles and LFG posts only: someone new to RPGs. Never a game's system.
+const undecidedSystem = 'undecided';
+
+/// Shown up front in the systems picker; the rest sit behind "All systems".
+const featuredSystems = ['dnd5e_2024', 'dnd5e_2014', 'pathfinder2e', 'coc'];
+
 // Game listing options.
 const gameTypeIds = ['one_shot', 'campaign'];
 const campaignStageIds = ['new', 'ongoing'];

@@ -6,6 +6,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/form_section.dart';
 import '../../widgets/location_picker.dart';
 import '../../widgets/page_padding.dart';
+import '../../widgets/systems_picker.dart';
 import '../profile/user_profile.dart';
 import 'seeker_post.dart';
 import 'seeker_repository.dart';
@@ -165,7 +166,12 @@ class _SeekerFormScreenState extends State<SeekerFormScreen> {
             FormSection(
               title: l10n.systemsLabel,
               error: missing(_systems.isEmpty),
-              child: _chips(gameSystems.keys, _systems, (id) => systemLabel(l10n, id)),
+              child: SystemsPicker(
+                selected: _systems,
+                onChanged: (s) => setState(() => _systems
+                  ..clear()
+                  ..addAll(s)),
+              ),
             ),
             FormSection(
               title: l10n.platformsLabel,

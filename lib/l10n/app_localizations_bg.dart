@@ -619,4 +619,18 @@ class AppLocalizationsBg extends AppLocalizations {
 
   @override
   String get countryBulgaria => 'България';
+
+  @override
+  String get systemUndecided => 'Все още не знам / начинаещ';
+
+  @override
+  String allSystems(int count) {
+    return 'Всички системи ($count)…';
+  }
+
+  @override
+  String get searchSystemsHint => 'Търси система…';
+
+  @override
+  String get done => 'Готово';
 }

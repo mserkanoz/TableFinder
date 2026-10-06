@@ -10,8 +10,11 @@ String platformLabel(AppLocalizations l10n, String id) => switch (id) {
       _ => platformBrandNames[id] ?? id,
     };
 
-String systemLabel(AppLocalizations l10n, String id) =>
-    id == 'other' ? l10n.optionOther : gameSystems[id] ?? id;
+String systemLabel(AppLocalizations l10n, String id) => switch (id) {
+      'other' => l10n.optionOther,
+      undecidedSystem => l10n.systemUndecided,
+      _ => gameSystems[id] ?? id,
+    };
 
 String gameTypeLabel(AppLocalizations l10n, String id) =>
     id == 'campaign' ? l10n.gameTypeCampaign : l10n.gameTypeOneShot;

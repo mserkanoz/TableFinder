@@ -144,7 +144,7 @@ class _SeekerSearchScreenState extends State<SeekerSearchScreen> {
   Widget _filterForm(AppLocalizations l10n) {
     return Column(
       children: [
-        _dropdown(l10n, l10n.systemLabel, _system, gameSystems.keys, (id) => systemLabel(l10n, id),
+        _dropdown(l10n, l10n.systemLabel, _system, [...gameSystems.keys, undecidedSystem], (id) => systemLabel(l10n, id),
             (v) => _system = v, filter: true),
         const SizedBox(height: 12),
         _dropdown(l10n, l10n.platformLabel, _platform, platformIds, (id) => platformLabel(l10n, id),

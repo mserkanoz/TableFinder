@@ -621,4 +621,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get countryBulgaria => 'Bulgaria';
+
+  @override
+  String get systemUndecided => 'Not sure yet / new to RPGs';
+
+  @override
+  String allSystems(int count) {
+    return 'All systems ($count)…';
+  }
+
+  @override
+  String get searchSystemsHint => 'Search systems…';
+
+  @override
+  String get done => 'Done';
 }
