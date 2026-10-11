@@ -124,6 +124,14 @@ service cloud.firestore {
       return /databases/$(database)/documents/games/$(gameId);
     }
 
+    // A one-shot whose session time has passed (matches GameListing.isExpired):
+    // no new applications, re-applies, acceptances or invitations.
+    function oneShotExpired(game) {
+      return game.gameType == 'one_shot'
+        && game.get('sessionAt', null) != null
+        && game.sessionAt < request.time;
+    }
+
     function validGame() {
       let d = request.resource.data;
       let owner = get(userPath(request.auth.uid)).data;
@@ -204,6 +212,7 @@ service cloud.firestore {
       return d.keys().hasOnly(['gameId', 'gameTitle', 'gameOwnerUid', 'applicantUid',
                                'applicantNickname', 'message', 'status', 'createdAt', 'updatedAt'])
         && game.status == 'open'
+        && !oneShotExpired(game)
         && game.ownerUid != request.auth.uid
         && !hasBlocked(game.ownerUid, request.auth.uid)
         && 'player' in me.roles
@@ -228,7 +237,8 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time
         && ((before in ['pending', 'accepted'] && after == 'withdrawn')
             || (before == 'withdrawn' && after == 'pending'
-                && get(gamePath(gameId)).data.status == 'open'));
+                && get(gamePath(gameId)).data.status == 'open'
+                && !oneShotExpired(get(gamePath(gameId)).data)));
     }
 
     // Game owner: accept/reject pending applications, or remove an accepted player.
@@ -238,7 +248,8 @@ service cloud.firestore {
       return get(gamePath(gameId)).data.ownerUid == request.auth.uid
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
         && request.resource.data.updatedAt == request.time
-        && ((before == 'pending' && after in ['accepted', 'rejected'])
+        && ((before == 'pending' && after == 'rejected')
+            || (before == 'pending' && after == 'accepted' && !oneShotExpired(get(gamePath(gameId)).data))
             || (before == 'accepted' && after == 'removed'));
     }
 
@@ -291,6 +302,7 @@ service cloud.firestore {
         && d.dmUid == request.auth.uid
         && game.ownerUid == request.auth.uid
         && game.status == 'open'
+        && !oneShotExpired(game)
         && d.gameTitle == game.title
         && d.dmNickname == get(userPath(request.auth.uid)).data.nickname
         && d.playerUid != request.auth.uid
